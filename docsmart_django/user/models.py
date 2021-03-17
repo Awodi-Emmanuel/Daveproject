@@ -6,10 +6,11 @@ from .user_manager import UserManager
 class User(AbstractBaseUser, PermissionsMixin):
     """User model."""
     email = models.EmailField(unique=True, null=False)
-    first_name = models.CharField(max_length=30, null=False)
-    last_name = models.CharField(max_length=30, null=False)
-    phone = models.CharField(max_length=30, null=False)
-    password = models.CharField(max_length=128, blank=False)
+    username = models.CharField(max_length=30, null=True)
+    first_name = models.CharField(max_length=30, null=True)
+    last_name = models.CharField(max_length=30, null=True)
+    phone = models.CharField(max_length=30, null=True)
+    password = models.CharField(max_length=128, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -21,7 +22,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     #unique identifier
     USERNAME_FIELD = 'email' 
     # any required fields besides email and password
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name',]
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

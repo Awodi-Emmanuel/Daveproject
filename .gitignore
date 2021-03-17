@@ -48,3 +48,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+.env
+docsmart_django/docsmart-env/

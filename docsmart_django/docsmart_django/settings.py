@@ -83,13 +83,36 @@ WSGI_APPLICATION = 'docsmart_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'NAME': 'doc_smart',
+        'USER': 'docsmart_admin',
+        'PASSWORD': 'DocSmart123_',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'user_auth.backends.JWTAuthentication',
+    )
+}
+
+
+JWT_SECRET_KEY = '1a2%@hu)wfwxhs*61o6)ilr)&341aqp2#n%6he#w82r3$97^3i'
+
+AUTHENTICATION_BACKENDS = ['user_auth.backends.EmailBackend']
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME'),
+#         'USER': os.environ.get('DB_USER'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD'),
+#         'HOST': os.environ.get('DB_HOST'),
+#         'PORT': os.environ.get('DB_PORT'),
+#     }
+# }
 
 
 # Password validation
