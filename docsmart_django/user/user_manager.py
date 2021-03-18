@@ -1,6 +1,9 @@
 """User manager model module"""
 from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth import get_user_model
+from company.company_manager import CompanyManager
+from company.models import Company
+import django.db.transaction
 
 
 class UserManager(BaseUserManager):
@@ -63,6 +66,8 @@ class UserManager(BaseUserManager):
             phone="",
             email="",
             password="",
+            company_name="",
+            company_email="",
             is_active=True,
             is_staff=False,
             is_admin=False
@@ -92,6 +97,30 @@ class UserManager(BaseUserManager):
             user.is_admin=is_admin
             user.set_password(password)
             user.save()
+            
+
+            # if not company_email:
+            #     raise ValueError('Users must pass company_email')
+            # if not company_name:
+            #     raise ValueError('Users must pass company_name')
+            # if Company.objects.filter(company_email=company_email.lower()).exists():
+            #     raise ValueError('Company email is already in use')
+            # if Company.objects.filter(company_name=company_name.lower()).exists():
+            #     raise ValueError('Company name is already in use')
+            
+            
+            # try:
+
+
+            company = Company.objects.create_company(
+                company_email = company_email,
+                company_name = company_name
+            )
+
+            # except Exception:
+
+            #     raise ValueError('Error Creating Company')
+
             return user
 
         except user_model.DoesNotExist:
