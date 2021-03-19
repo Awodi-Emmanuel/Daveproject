@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework.generics import GenericAPIView
 from .serializers import UserSerializer, LoginSerializer, SignUpSerializer
+from company.serializers import CompanySerializer
 from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
 from django.contrib import auth
+import json
 import jwt
 # Create your views here.
 
@@ -26,12 +28,23 @@ class RegisterView(GenericAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user_serializer = UserSerializer(data=request.data)
+        company_serializer = CompanySerializer(data=request.data)
+
+        if user_serializer.is_valid() and company_serializer.is_valid():
+            
+            user_serializer.save()
+            company_serializer.save()
+            response_data = {'user_object': user_serializer.data, 'company_object': company_serializer.data} 
+            return Response(response_data, status=status.HTTP_201_CREATED)
+
+        else:
+
+            user_serializer.is_valid()
+            company_serializer.is_valid()
+            error_data = {'user_error': user_serializer.errors, 'company_error': company_serializer.errors} 
+            return Response(error_data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(GenericAPIView):
