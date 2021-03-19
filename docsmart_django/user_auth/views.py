@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
 from django.contrib import auth
-import json
+from django.contrib.auth import get_user_model
+from company.models import Company
 import jwt
 # Create your views here.
 
@@ -34,8 +35,14 @@ class RegisterView(GenericAPIView):
 
         if user_serializer.is_valid() and company_serializer.is_valid():
             
-            user_serializer.save()
-            company_serializer.save()
+            user_id = user_serializer.save()
+            company_id = company_serializer.save()
+
+            user_model = get_user_model()
+            # user = user_model.objects.get(id=user_id)
+            # company = Company.objects.get(id=company_id)
+            Company.add_to_company(user=user_id, company=company_id)
+
             response_data = {'user_object': user_serializer.data, 'company_object': company_serializer.data} 
             return Response(response_data, status=status.HTTP_201_CREATED)
 

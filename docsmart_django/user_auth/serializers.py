@@ -2,8 +2,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from user.models import User
-from company.models import Company
-from company.serializers import CompanySerializer
+
+
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -19,7 +19,7 @@ class Company(models.Model):
 
     @classmethod
     def add_to_company(cls, user, company):
-        company.users.add(user)
+        company.user.add(user)
 
     @classmethod
     def remove_from_company(cls, user, company):
@@ -31,7 +31,7 @@ class Company(models.Model):
         verbose_name_plural = "Companies"
 
     def __str__(self):
-        return self.company_name
+        return str(self.id)
 
     def get_absolute_url(self):
         return reverse("Company_detail", kwargs={"pk": self.pk})
