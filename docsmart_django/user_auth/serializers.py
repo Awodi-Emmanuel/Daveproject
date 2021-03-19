@@ -13,23 +13,25 @@ class UserSerializer(serializers.ModelSerializer):
     phone = serializers.CharField(max_length=30, min_length=10)
     first_name = serializers.CharField(max_length=255, min_length=2)
     last_name = serializers.CharField(max_length=255, min_length=2)
-    company_email = serializers.SerializerMethodField()
-    company_name = serializers.SerializerMethodField()
+    company_email = serializers.SerializerMethodField(source='get_company_email')
+    company_name = serializers.SerializerMethodField(source='get_company_name')
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'phone','email', 'password','company_email', 'company_name',]
 
-    def get_company_email(self, obj):
-        return obj.company_email
+    def get_company_email(self):
+        #obj.company_email
+        return request.POST.get("company_email", "") 
     
-    def get_company_name(self, obj):
-        return obj.company_name
+    def get_company_name(self):
+        #return obj.company_name
+        return request.POST.get("company_name", "") 
 
     def validate(self, attrs):
         email = attrs.get('email', '')
-        # company_email = attrs.get('company_email', '')
-        # company_name = attrs.get('company_name', '')
+        company_email = attrs.get('company_email', '')
+        company_name = attrs.get('company_name', '')
         if email is None:
             raise serializers.ValidationError(
                 {'email': ('Email cannot be empty')})
