@@ -1,12 +1,13 @@
 
 from django.urls import path
-from .views import RegisterView, LoginView, SignUp, InviteUser
+from .views import CompleteUserSignUp, LoginView, SignUp, InviteUser, CompleteRegistrationForInvite
 
 
 urlpatterns = [
-    path('register', RegisterView.as_view()),
+    path('complete-signup', CompleteUserSignUp.as_view()),
     path('login', LoginView.as_view()),
     path('signup', SignUp.as_view()),
     path('invite', InviteUser.as_view()),
+    path('complete-invite', CompleteRegistrationForInvite.as_view()),
     
 ]
