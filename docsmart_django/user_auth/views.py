@@ -25,6 +25,32 @@ class SignUp(GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class InviteUser(GenericAPIView):
+    
+    serializer_class = SignUpSerializer
+
+    def post(self, request):
+        serializer = SignUpSerializer(data=request.data)
+
+        if request.data.get('company_id') is not None and request.data.get('company_id') != '':
+            
+            if serializer.is_valid():
+
+                user_id = serializer.save()
+                company =Company.objects.get(id=request.data.get('company_id'))
+                
+
+                Company.add_to_company(user=user_id, company=company)
+
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'message' : "company_id field is required and must not be empty"}, status=status.HTTP_400_BAD_REQUEST)
+
+        
+
+        
 class RegisterView(GenericAPIView):
     serializer_class = UserSerializer
 
@@ -36,11 +62,7 @@ class RegisterView(GenericAPIView):
         if user_serializer.is_valid() and company_serializer.is_valid():
             
             user_id = user_serializer.save()
-            company_id = company_serializer.save()
-
-            user_model = get_user_model()
-            # user = user_model.objects.get(id=user_id)
-            # company = Company.objects.get(id=company_id)
+            company_id = company_serializer.save()        
             Company.add_to_company(user=user_id, company=company_id)
 
             response_data = {'user_object': user_serializer.data, 'company_object': company_serializer.data} 
