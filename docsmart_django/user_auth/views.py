@@ -9,8 +9,7 @@ from django.contrib import auth
 from django.contrib.auth import get_user_model
 from company.models import Company
 import jwt
-# Create your views here.
-
+from .helpers.send import SendMail
 
 class SignUp(GenericAPIView):
     
@@ -19,7 +18,8 @@ class SignUp(GenericAPIView):
     def post(self, request):
         serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            user = serializer.save()
+            SendMail.send_confirmation_mail(self, url='http://127.0.0.1:8000/api/auth/complete-signup', user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -32,15 +32,22 @@ class InviteUser(GenericAPIView):
     def post(self, request):
         serializer = SignUpSerializer(data=request.data)
 
-        if request.data.get('company_id') is not None and request.data.get('company_id') != '':
+        if request.data.get('company_id') is not None or request.data.get('company_id') != '':
+
+            if request.data.get('user_id') is None or request.data.get('user_id') == '':
+                
+                return Response({'message' : "user_id field is required and must not be empty"}, status=status.HTTP_400_BAD_REQUEST)
             
             if serializer.is_valid():
 
-                user_id = serializer.save()
-                company =Company.objects.get(id=request.data.get('company_id'))
+                user_model = get_user_model()
+                invited_user = serializer.save()
+                company = Company.objects.get(id=request.data.get('company_id'))
+                current_user = user_model.objects.get(id=request.data.get('user_id'))
 
+                SendMail.send_invite(self, url='http://127.0.0.1:8000/api/auth/complete-signup', invited_user=invited_user, current_user=current_user)
 
-                Company.add_to_company(user=user_id, company=company)
+                Company.add_to_company(user=invited_user, company=company)
 
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             

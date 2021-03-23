@@ -47,6 +47,13 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'user.User'
 
+
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'postmaster@sandbox1be520cdb9fe45a0b76cef31d274d7a6.mailgun.org'
+EMAIL_HOST_PASSWORD = '1f89430fbbb136c4ffe3b58d6dd61d64-1553bd45-04f1590c'
+EMAIL_USE_TLS = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -62,7 +69,7 @@ ROOT_URLCONF = 'docsmart_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'mail'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
