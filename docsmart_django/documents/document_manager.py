@@ -13,7 +13,6 @@ class DocumentsManager(models.Manager):
             path,
             company_id,
             created_by,
-            has_access,
             last_edited_by,
             
         ):

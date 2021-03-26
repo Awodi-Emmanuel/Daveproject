@@ -10,7 +10,7 @@ class DocumentSerializer(serializers.ModelSerializer):
     path = serializers.CharField(max_length=255, min_length=4)
     company_id = serializers.IntegerField()
     created_by = serializers.IntegerField()
-    last_edited_by = serializers.CharField(max_length=255, min_length=2)
+    last_edited_by = serializers.IntegerField()
 
     class Meta:
         model = Document

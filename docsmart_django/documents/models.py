@@ -12,7 +12,7 @@ class Document(models.Model):
     path = models.CharField(max_length=255, null= False)
     company_id = models.ForeignKey(Company, on_delete=models.CASCADE, null=True,)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="creator")
-    permissions = models.ManyToManyField("document.DocumentPermission", verbose_name="Permission",blank=True)
+    permissions = models.ManyToManyField("DocumentPermission", verbose_name="Permission",blank=True)
     date_last_edited = models.DateTimeField(auto_now_add=True)
     last_edited_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now=True, null=True)
@@ -47,7 +47,7 @@ class Document(models.Model):
     class DocumentPermission(models.Model):
         
           
-        document_id = models.ForeignKey(Document, on_delete=models.CASCADE)
+        document_id = models.ForeignKey('Document', on_delete=models.CASCADE)
         user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="permission_owner")
         can_view = models.BooleanField(verbose_name="Can View", name="can_view",default=True)
         can_edit = models.BooleanField(verbose_name="Can Edit", default=False)
