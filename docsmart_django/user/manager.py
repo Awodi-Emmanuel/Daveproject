@@ -1,9 +1,7 @@
 """User manager model module"""
 from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth import get_user_model
-from company.company_manager import CompanyManager
-from company.models import Company
-import django.db.transaction
+
 
 
 class UserManager(BaseUserManager):

@@ -1,5 +1,5 @@
 from django.db import models
-from .company_manager import CompanyManager
+from .manager import CompanyManager
 
 
 class Company(models.Model):

@@ -46,9 +46,7 @@ class InviteUser(GenericAPIView):
                 current_user = user_model.objects.get(id=request.data.get('user_id'))
 
                 SendMail.send_invite(self, url='http://127.0.0.1:8000/api/auth/complete-signup', invited_user=invited_user, current_user=current_user)
-
                 Company.add_to_company(user=invited_user, company=company)
-
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -65,7 +63,7 @@ class CompleteRegistrationForInvite(GenericAPIView):
 
         if user_serializer.is_valid():
             
-            user_id = user_serializer.save()
+            user_serializer.save()
             return Response(user_serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
