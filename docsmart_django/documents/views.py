@@ -3,7 +3,7 @@ from .serializers import DocumentSerializer
 from rest_framework.response import Response
 from rest_framework import status
 
-# Create your views here.
+
 class CreateDocument(GenericAPIView):
     serializer_class = DocumentSerializer
 
