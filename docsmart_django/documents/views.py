@@ -14,6 +14,6 @@ class CreateDocument(GenericAPIView):
         if document_serializer.is_valid():
             
             document_serializer.save()
-            return Response(document_serializer.data, status=status.HTTP_201_CREATED)
+            return Response({'message' : 'Document created successfully'}, status=status.HTTP_201_CREATED)
 
         return Response(document_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

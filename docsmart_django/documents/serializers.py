@@ -45,9 +45,10 @@ class DocumentSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         
-        return Document.objects.create_document(**validated_data)
-        # creating_user = get_user_model().objects.get(id=validated_data.get('created_by'))
-        # permission = DocumentPermission.objects.grant_basic_permissions(document_id= document, user_id= creating_user)
-        # Document.grant_access(permissions=permission, document=document)
+        document = Document.objects.create_document(**validated_data)
+        creating_user = get_user_model().objects.get(id=validated_data.get('created_by'))
+        permission = DocumentPermission.objects.grant_basic_permissions(document_id= document, user_id= creating_user)
+        Document.grant_access(permissions=permission, document=document)
 
-        #return document
+        return document
+        
