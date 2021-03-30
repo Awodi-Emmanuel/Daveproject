@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from permissions.models import DocumentPermission
 from rest_framework import serializers
 from .models import Document
+from user.models import User
 
 
 class DocumentSerializer(serializers.ModelSerializer):
@@ -50,10 +51,11 @@ class DocumentSerializer(serializers.ModelSerializer):
 
         return document
 
+class FetchSerializer(serializers.ModelSerializer):
 
-class FetchSerializer:
     user = serializers.IntegerField()
-
+    queryset = DocumentPermission.objects.all()
+    
     class Meta:
         model = User
         fields = ['user_id']
