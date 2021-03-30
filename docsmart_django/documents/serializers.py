@@ -5,7 +5,6 @@ from .models import Document
 
 
 class DocumentSerializer(serializers.ModelSerializer):
-
     name = serializers.CharField(
         max_length=255, min_length=8)
     path = serializers.CharField(max_length=255, min_length=4)
@@ -15,8 +14,7 @@ class DocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ['name', 'path', 'company_id','created_by', 'last_edited_by',]
-
+        fields = ['name', 'path', 'company_id', 'created_by', 'last_edited_by', ]
 
     def validate(self, attrs):
         name = attrs.get('name', '')
@@ -27,28 +25,44 @@ class DocumentSerializer(serializers.ModelSerializer):
 
         if name is None:
             raise serializers.ValidationError(
-                {'name': ('Name cannot be empty')})
+                {'name': 'Name cannot be empty'})
         if path is None:
             raise serializers.ValidationError(
-                {'path': ('Path cannot be empty')})
+                {'path': 'Path cannot be empty'})
         if company_id is None:
             raise serializers.ValidationError(
-                {'company_id': ('company_id cannot be empty')})
+                {'company_id': 'company_id cannot be empty'})
         if created_by is None:
             raise serializers.ValidationError(
-                {'created_by': ('created_by cannot be empty')})
+                {'created_by': 'created_by cannot be empty'})
         if last_edited_by is None:
             raise serializers.ValidationError(
-                {'last_edited_by': ('last_edited_by cannot be empty')})
-        
+                {'last_edited_by': 'last_edited_by cannot be empty'})
+
         return super().validate(attrs)
 
     def create(self, validated_data):
-        
+
         document = Document.objects.create_document(**validated_data)
         creating_user = get_user_model().objects.get(id=validated_data.get('created_by'))
-        permission = DocumentPermission.objects.grant_basic_permissions(document_id= document, user_id= creating_user)
+        permission = DocumentPermission.objects.grant_basic_permissions(document_id=document, user_id=creating_user)
         Document.grant_access(permissions=permission, document=document)
 
         return document
-        
+
+
+class FetchSerializer:
+    user = serializers.IntegerField()
+
+    class Meta:
+        model = User
+        fields = ['user_id']
+
+    def validate(self, attrs):
+        name = attrs.get('user', '')
+
+        if name is None:
+            raise serializers.ValidationError(
+                {'user_id': 'user_id cannot be empty'})
+
+        return super().validate(attrs)

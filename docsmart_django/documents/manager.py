@@ -1,12 +1,13 @@
 from django.db import models
 from company.models import Company
 from django.contrib.auth import get_user_model
-from permissions.models import DocumentPermission
+
 
 class DocumentsManager(models.Manager):
     """ 
     custom documents model
     """
+
     def create_document(
             self,
             name,
@@ -14,8 +15,8 @@ class DocumentsManager(models.Manager):
             company_id,
             created_by,
             last_edited_by,
-            
-        ):
+
+    ):
         """Create basic document."""
         if not name:
             raise ValueError('Document must have a name')
@@ -43,10 +44,10 @@ class DocumentsManager(models.Manager):
 
         document = self.model(
             name=name.lower(),
-            path = path,
-            company_id = company,
-            created_by = creating_user,
-            last_edited_by = editing_user,  
+            path=path,
+            company_id=company,
+            created_by=creating_user,
+            last_edited_by=editing_user,
         )
 
         document.save(using=self._db)
