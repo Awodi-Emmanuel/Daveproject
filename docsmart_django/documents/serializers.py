@@ -51,6 +51,7 @@ class DocumentSerializer(serializers.ModelSerializer):
 
         return document
 
+
 class FetchSerializer(serializers.ModelSerializer):
 
     user = serializers.IntegerField()

@@ -1,4 +1,3 @@
-
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from user.models import User
@@ -14,18 +13,17 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'phone','email', 'password',]
-
+        fields = ['first_name', 'last_name', 'phone', 'email', 'password', ]
 
     def validate(self, attrs):
         email = attrs.get('email', '')
 
         if email is None:
             raise serializers.ValidationError(
-                {'email': ('Email cannot be empty')})
-        if User.objects.filter(email=email).exists() == False :
+                {'email': 'Email cannot be empty'})
+        if not User.objects.filter(email=email).exists():
             raise serializers.ValidationError(
-                {'email': ('User does not exist')})
+                {'email': 'User does not exist'})
         return super().validate(attrs)
 
     def create(self, validated_data):
@@ -33,7 +31,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class SignUpSerializer(serializers.ModelSerializer):
-    
     email = serializers.EmailField(max_length=255, min_length=4)
 
     class Meta:
@@ -44,14 +41,15 @@ class SignUpSerializer(serializers.ModelSerializer):
         email = attrs.get('email', '')
         if email is None:
             raise serializers.ValidationError(
-                {'email': ('Email cannot be empty')})
+                {'email': 'Email cannot be empty'})
         if User.objects.filter(email=email).exists():
             raise serializers.ValidationError(
-                {'email': ('Email is already in use')})
+                {'email': 'Email is already in use'})
         return super().validate(attrs)
 
     def create(self, validated_data):
         return User.objects.create_default_user(**validated_data)
+
 
 class LoginSerializer(serializers.ModelSerializer):
     password = serializers.CharField(

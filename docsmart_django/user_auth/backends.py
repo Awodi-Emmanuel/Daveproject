@@ -20,7 +20,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
             payload = jwt.decode(token, settings.JWT_SECRET_KEY)
 
             user = User.objects.get(username=payload['username'])
-            return (user, token)
+            return user, token
 
         except jwt.DecodeError as identifier:
             raise exceptions.AuthenticationFailed(
@@ -30,7 +30,6 @@ class JWTAuthentication(authentication.BaseAuthentication):
                 'Your token is expired,login')
 
         return super().authenticate(request)
-
 
 
 class EmailBackend(ModelBackend):
