@@ -108,7 +108,7 @@ REST_FRAMEWORK = {
 }
 
 
-JWT_SECRET_KEY = '1a2%@hu)wfwxhs*61o6)ilr)&341aqp2#n%6he#w82r3$97^3i'
+JWT_SECRET_KEY = '1a2%@hu)wfwxhs*61o6)ilr)&341aqp2#n6he#w82r3$97^3i'
 
 AUTHENTICATION_BACKENDS = ['user_auth.backends.EmailBackend']
 

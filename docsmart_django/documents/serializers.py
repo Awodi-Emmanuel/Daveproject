@@ -53,19 +53,8 @@ class DocumentSerializer(serializers.ModelSerializer):
 
 
 class FetchSerializer(serializers.ModelSerializer):
-
-    user = serializers.IntegerField()
-    queryset = DocumentPermission.objects.all()
-    
     class Meta:
-        model = User
-        fields = ['user_id']
+        model = DocumentPermission
+        depth = 1
+        fields = ['document_id', 'can_view', 'can_edit', 'can_delete', ]
 
-    def validate(self, attrs):
-        name = attrs.get('user', '')
-
-        if name is None:
-            raise serializers.ValidationError(
-                {'user_id': 'user_id cannot be empty'})
-
-        return super().validate(attrs)

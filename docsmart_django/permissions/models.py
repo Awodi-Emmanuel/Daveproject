@@ -19,7 +19,7 @@ class DocumentPermission(models.Model):
         verbose_name_plural = "DocumentPermissions"
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
     def get_absolute_url(self):
         return reverse("DocumentPermission_detail", kwargs={"pk": self.pk})
