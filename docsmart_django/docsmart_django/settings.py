@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'company',
     'documents',
     'permissions',
-    'django_heroku',
+    'rest_framework_swagger',
+    'drf_yasg',
 
 ]
 
@@ -83,6 +84,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'docsmart_django.wsgi.application'
+
+REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
