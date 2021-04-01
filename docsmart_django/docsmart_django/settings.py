@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = '1a2%@hu)wfwxhs*61o6)ilr)&341aqp2#n%6he#w82r3$97^3i'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -43,12 +41,11 @@ INSTALLED_APPS = [
     'company',
     'documents',
     'permissions',
-
+    'django_heroku',
 
 ]
 
 AUTH_USER_MODEL = 'user.User'
-
 
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_PORT = 587
@@ -71,7 +68,7 @@ ROOT_URLCONF = 'docsmart_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'mail'),],
+        'DIRS': [os.path.join(BASE_DIR, 'mail'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,7 +82,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'docsmart_django.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -107,11 +103,9 @@ REST_FRAMEWORK = {
     )
 }
 
-
 JWT_SECRET_KEY = '1a2%@hu)wfwxhs*61o6)ilr)&341aqp2#n6he#w82r3$97^3i'
 
 AUTHENTICATION_BACKENDS = ['user_auth.backends.EmailBackend']
-
 
 # DATABASES = {
 #     'default': {
@@ -143,7 +137,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -157,8 +150,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+import django_heroku
+
+django_heroku.settings(locals())

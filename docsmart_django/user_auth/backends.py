@@ -30,8 +30,6 @@ class JWTAuthentication(authentication.BaseAuthentication):
             raise exceptions.AuthenticationFailed(
                 'Your token is expired,login')
 
-        return super().authenticate(request)
-
 
 class EmailBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):

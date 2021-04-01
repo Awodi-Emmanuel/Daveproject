@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from permissions.models import DocumentPermission
 from rest_framework import serializers
 from .models import Document
-from user.models import User
 
 
 class DocumentSerializer(serializers.ModelSerializer):
@@ -57,4 +56,3 @@ class FetchSerializer(serializers.ModelSerializer):
         model = DocumentPermission
         depth = 1
         fields = ['document_id', 'can_view', 'can_edit', 'can_delete', ]
-

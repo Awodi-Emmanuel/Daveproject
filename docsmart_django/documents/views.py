@@ -6,7 +6,6 @@ from rest_framework import status, permissions, serializers
 from .classes.folders import path_to_dict
 
 
-
 class CreateDocument(GenericAPIView):
     serializer_class = DocumentSerializer
 
@@ -22,7 +21,6 @@ class CreateDocument(GenericAPIView):
 
 
 class FetchDocument(ListCreateAPIView):
-
     serializer_class = FetchSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -31,7 +29,6 @@ class FetchDocument(ListCreateAPIView):
 
 
 class FetchUserFolders(GenericAPIView):
-
     permission_classes = (permissions.IsAuthenticated,)
 
     @staticmethod
@@ -40,16 +37,9 @@ class FetchUserFolders(GenericAPIView):
         try:
 
             structure = path_to_dict('/var/www/html/connectivo/docsmart/docsmart_django/documents/migrations')
-            return  Response(structure, status=status.HTTP_200_OK)
+            return Response(structure, status=status.HTTP_200_OK)
 
         except Exception:
 
-            return Response({"message" : "We're unabke to fecth the users folder structure"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
-
-
-
-         
-
+            return Response({"message": "We're unabke to fecth the users folder structure"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
