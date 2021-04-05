@@ -1,21 +1,11 @@
-from .folders import path_to_dict
-from permissions.classes.permission_engine import Engine
+from .folders import get_user_files
+
 
 class Generator:
-
-    BASE_PATH = "/var/www/html/storage/"
-
-    @staticmethod
-    def generateUserFolderObject(user_id):
-
-        permission_object = Engine.fetch_accessible_files(user=user_id)
-        folder_object = path_to_dict(Generator.BASE_PATH + "user_" + user_id)
-        user_folder_object = []
-
-        print(folder_object)
-        print(permission_object)
-        # for permissions in permission_object:
+    BASE_PATH = "/Users/DELL/Documents/Projects/storage/"
+    FOLDER_PREFIX = 'user_'
 
     @staticmethod
-    def matchFolderFileToPermission(folder_object):
-        
+    def generate_user_folder_object(user_id):
+
+        return get_user_files(Generator.BASE_PATH + Generator.FOLDER_PREFIX + user_id)

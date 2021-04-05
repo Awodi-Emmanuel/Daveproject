@@ -2,8 +2,7 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from .serializers import DocumentSerializer, FetchSerializer
 from permissions.models import DocumentPermission
 from rest_framework.response import Response
-from rest_framework import status, permissions, serializers
-from .classes.folders import path_to_dict
+from rest_framework import status, permissions
 from .classes.generator import Generator
 
 
@@ -29,7 +28,7 @@ class FetchUserDocument(ListCreateAPIView):
         return DocumentPermission.objects.filter(user_id=self.request.user)
 
 
-class FetchUserFolders(GenericAPIView):
+class FetchUserFolderStructureWithPermissions(GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     @staticmethod
@@ -37,28 +36,11 @@ class FetchUserFolders(GenericAPIView):
         
         try:
 
-            structure = path_to_dict('/var/www/html/connectivo/docsmart/docsmart_django/documents/migrations')
+            structure = Generator.generate_user_folder_object(str(request.user.id))
+
             return Response(structure, status=status.HTTP_200_OK)
 
         except Exception:
 
-            return Response({"message": "We're unabke to fecth the users folder structure"},
+            return Response({"message": "We're unable to fetch the users folder structure"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-class FetchUserFolderStructureWithPermissions(GenericAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-
-    @staticmethod
-    def get(request):
-        
-        # try:
-
-        structure = Generator.generateUserFolderObject(str(request.user.id))
-
-        return Response(structure, status=status.HTTP_200_OK)
-
-        # except Exception:
-
-        #     return Response({"message": "We're unabke to fecth the users folder structure"},
-        #                     status=status.HTTP_500_INTERNAL_SERVER_ERROR)

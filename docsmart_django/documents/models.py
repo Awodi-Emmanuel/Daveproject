@@ -4,27 +4,24 @@ from company.models import Company
 from documents.manager import DocumentsManager
 from permissions.models import DocumentPermission
 
+
 # Create your models here.
 
 class Document(models.Model):
-    
-
     """Document model."""
     name = models.CharField(max_length=255, null=False)
-    path = models.CharField(max_length=255, null= False)
-    company_id = models.ForeignKey(Company, on_delete=models.CASCADE, null=True,)
+    path = models.CharField(max_length=255, null=False)
+    company_id = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, )
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="creator")
-    permissions = models.ManyToManyField(DocumentPermission, verbose_name="Permission",blank=True)
+    permissions = models.ManyToManyField(DocumentPermission, verbose_name="Permission", blank=True)
     date_last_edited = models.DateTimeField(auto_now_add=True)
     last_edited_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
-    
 
-    REQUIRED_FIELDS = ['name', 'created_by', 'path', 'company_id', 'last_edited_by',]
+    REQUIRED_FIELDS = ['name', 'created_by', 'path', 'company_id', 'last_edited_by', ]
 
     objects = DocumentsManager()
-
 
     @classmethod
     def grant_access(cls, permissions, document):
@@ -43,4 +40,3 @@ class Document(models.Model):
 
     def get_absolute_url(self):
         return reverse("Document_detail", kwargs={"pk": self.pk})
-
