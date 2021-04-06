@@ -3,7 +3,6 @@ from permissions.classes.permission_engine import Engine
 
 
 def get_user_files(path) -> dict:
-
     folder = {}
     permissions = Engine.fetch_accessible_files_by_name(os.path.basename(path).lower())
 
@@ -19,6 +18,21 @@ def get_user_files(path) -> dict:
 
     d = {'name': os.path.basename(path), 'permissions': folder}
 
+    if os.path.isdir(path):
+        d['type'] = "directory"
+        d['children'] = [get_user_files(os.path.join(path, x)) for x in os.listdir(path)]
+    else:
+        d['type'] = "file"
+
+    return d
+
+# def get_company_files() -> dict:
+
+
+
+
+def get_current_directory(path) -> dict:
+    d = {'name': os.path.basename(path)}
     if os.path.isdir(path):
         d['type'] = "directory"
         d['children'] = [get_user_files(os.path.join(path, x)) for x in os.listdir(path)]

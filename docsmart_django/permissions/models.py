@@ -1,4 +1,6 @@
 from django.db import models
+
+from company.models import Company
 from .manager import PermissionsManager
 from user.models import User
 
