@@ -7,10 +7,12 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from .classes.generator import Generator
 from .classes.directory import Directory
+from .classes.files import Files
 
 
 class CreateDocument(GenericAPIView):
     serializer_class = DocumentSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     @staticmethod
     def post(request):
@@ -22,6 +24,28 @@ class CreateDocument(GenericAPIView):
 
         return Response(document_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class DeleteSingleUserDocument(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    @staticmethod
+    def post(request):
+
+        document_id = request.data.get("document_id")
+        print(document_id)
+
+        if document_id is None:
+            return Response({'message': 'document_id cannot be null', 'status': 'failed'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        
+        # try:
+
+        file = Files.delete_single_user_document(document_id, str(request.user.id))
+        return Response(file, status=status.HTTP_200_OK)
+
+        # except Exception:
+        
+        #     return Response({"message": "We're unable to delete this document"},
+        #                     status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class FetchUserDocument(ListCreateAPIView):
     serializer_class = FetchUserDocumentsSerializer
@@ -29,8 +53,8 @@ class FetchUserDocument(ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
+        
         return Document.objects.filter(company_id__isnull=True, permissions__user_id=self.request.user)
-            # DocumentPermission.objects.filter(user_id=self.request.user)
 
 
 class FetchUserFolderStructureWithPermissions(GenericAPIView):
@@ -39,17 +63,33 @@ class FetchUserFolderStructureWithPermissions(GenericAPIView):
     @staticmethod
     def get(request):
         
-        # try:
+        try:
 
-        structure = Generator.generate_user_folder_object(str(request.user.id))
+            structure = Generator.generate_user_folder_object(str(request.user.id))
 
-        return Response(structure, status=status.HTTP_200_OK)
+            return Response(structure, status=status.HTTP_200_OK)
 
-        # except Exception:
-        #
-        #     return Response({"message": "We're unable to fetch the users folder structure"},
-        #                     status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception:
+        
+            return Response({"message": "We're unable to fetch the users folder structure"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+class FetchCompanyFolderStructureWithPermissions(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    @staticmethod
+    def get(request):
+        
+        try:
+
+            structure = Generator.generate_company_folder_object(str(request.user.id))
+            return Response(structure, status=status.HTTP_200_OK)
+
+        except Exception:
+        
+            return Response({"message": "We're unable to fetch the users folder structure"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class CreateSingleUserDirectory(GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
