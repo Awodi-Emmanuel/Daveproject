@@ -56,3 +56,11 @@ class FetchSerializer(serializers.ModelSerializer):
         model = DocumentPermission
         depth = 1
         fields = ['document_id', 'can_view', 'can_edit', 'can_delete', ]
+
+
+class FetchUserDocumentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Document
+        depth = 1
+        fields = ['id', 'name', 'path', 'date_last_edited', 'created_at',
+                  'updated_at', 'date_last_edited', 'permissions']

@@ -1,5 +1,7 @@
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
-from .serializers import DocumentSerializer, FetchSerializer
+
+from .models import Document
+from .serializers import DocumentSerializer, FetchSerializer, FetchUserDocumentsSerializer
 from permissions.models import DocumentPermission
 from rest_framework.response import Response
 from rest_framework import status, permissions
@@ -22,11 +24,13 @@ class CreateDocument(GenericAPIView):
 
 
 class FetchUserDocument(ListCreateAPIView):
-    serializer_class = FetchSerializer
+    serializer_class = FetchUserDocumentsSerializer
+    # serializer_class = FetchSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        return DocumentPermission.objects.filter(user_id=self.request.user)
+        return Document.objects.filter(company_id__isnull=True, permissions__user_id=self.request.user)
+            # DocumentPermission.objects.filter(user_id=self.request.user)
 
 
 class FetchUserFolderStructureWithPermissions(GenericAPIView):
@@ -35,16 +39,16 @@ class FetchUserFolderStructureWithPermissions(GenericAPIView):
     @staticmethod
     def get(request):
         
-        try:
+        # try:
 
-            structure = Generator.generate_user_folder_object(str(request.user.id))
+        structure = Generator.generate_user_folder_object(str(request.user.id))
 
-            return Response(structure, status=status.HTTP_200_OK)
+        return Response(structure, status=status.HTTP_200_OK)
 
-        except Exception:
-
-            return Response({"message": "We're unable to fetch the users folder structure"},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        # except Exception:
+        #
+        #     return Response({"message": "We're unable to fetch the users folder structure"},
+        #                     status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class CreateSingleUserDirectory(GenericAPIView):

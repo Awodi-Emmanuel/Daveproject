@@ -2,33 +2,36 @@ import os
 from permissions.classes.permission_engine import Engine
 
 
-def get_user_files(path) -> dict:
+def get_user_files(path, user) -> dict:
     folder = {}
-    permissions = Engine.fetch_accessible_files_by_name(os.path.basename(path).lower())
+    documents = Engine.fetch_accessible_files_by_name(os.path.basename(path).lower(), user)
 
-    if len(permissions) > 0:
+    if len(documents) > 0:
 
-        for permission in permissions:
-            perm = {'document_id': permission.document_id.id,
-                    'user_id': permission.user_id.id,
-                    'can_view': permission.can_view,
-                    'can_edit': permission.can_edit,
-                    'can_delete': permission.can_delete}
-            folder[permission.document_id.id] = perm
+        for document in documents:
+            perm = {'document_id': document.id,
+                    'date_last_edited': document.date_last_edited,
+                    'created_at': document.created_at,
+                    'updated_at': document.updated_at,
+                    'permissions': {'can_view': document.permissions}
+                    #                 'can_edit': document.permissions.id,
+                    #                 'can_delete': document.permissions.id}
+                    }
+            folder[document.id] = perm
 
     d = {'name': os.path.basename(path), 'permissions': folder}
 
     if os.path.isdir(path):
         d['type'] = "directory"
-        d['children'] = [get_user_files(os.path.join(path, x)) for x in os.listdir(path)]
+        d['children'] = [get_user_files(path=os.path.join(path, x), user=user) for x in os.listdir(path)]
     else:
         d['type'] = "file"
 
     return d
 
-# def get_company_files() -> dict:
 
-
+def get_company_files() -> dict:
+    pass
 
 
 def get_current_directory(path) -> dict:
