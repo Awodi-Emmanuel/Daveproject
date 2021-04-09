@@ -37,15 +37,40 @@ class DeleteSingleUserDocument(GenericAPIView):
             return Response({'message': 'document_id cannot be null', 'status': 'failed'},
                             status=status.HTTP_400_BAD_REQUEST)
         
-        # try:
+        try:
 
-        file = Files.delete_single_user_document(document_id, str(request.user.id))
-        return Response(file, status=status.HTTP_200_OK)
+            file = Files.delete_single_user_document(document_id, str(request.user.id))
+            return Response(file, status=status.HTTP_200_OK)
 
-        # except Exception:
+        except Exception:
         
-        #     return Response({"message": "We're unable to delete this document"},
-        #                     status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"message": "We're unable to delete this document"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class DeleteSingleCompanyDocument(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    @staticmethod
+    def post(request):
+
+        document_id = request.data.get("document_id")
+        print(document_id)
+
+        if document_id is None:
+            return Response({'message': 'document_id cannot be null', 'status': 'failed'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+
+            file = Files.delete_single_company_document(document_id, str(request.user.id))
+            return Response(file, status=status.HTTP_200_OK)
+
+        except Exception:
+        
+            return Response({"message": "We're unable to delete this document"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class FetchUserDocument(ListCreateAPIView):
     serializer_class = FetchUserDocumentsSerializer

@@ -34,9 +34,6 @@ def get_company_folder(path, user, company) -> dict:
     folder = []
     documents = Engine.fetch_company_files_by_name(os.path.basename(path).lower(),company,user)
 
-    print(documents)
-    print(os.path.basename(path).lower())
-
     if len(documents) > 0:
 
         for document in documents:
