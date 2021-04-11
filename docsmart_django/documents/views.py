@@ -127,12 +127,12 @@ class CreateSingleUserDirectory(GenericAPIView):
             directory_name = request.data.get("folder_name")
             current_directory_path = request.data.get("current_path")
 
-            if directory_name is None or current_directory_path is None:
-                return Response({'message': 'folder_name or folder_path is missing', 'status': 'failed'},
+            if directory_name is None:
+                return Response({'message': 'folder_name', 'status': 'failed'},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             new_directory = Directory.create_single_directory(str(request.user.id),
-                                                              current_directory_path, directory_name)
+                                                                current_directory_path, directory_name)
 
             return Response(new_directory, status=status.HTTP_200_OK)
 

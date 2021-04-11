@@ -20,9 +20,9 @@ class Directory:
 
         try:
 
-            if not Path(new_directory_path).is_dir():
-                Path(new_directory_path).mkdir()
-                return get_current_directory(current_directory_path)
+            if not Path(new_directory_path.strip()).is_dir():
+                Path(new_directory_path.strip()).mkdir()
+                return get_current_directory(current_directory_path.strip(),user)
 
             return {"message": "Folder already exists", "status": "failed"}
 
