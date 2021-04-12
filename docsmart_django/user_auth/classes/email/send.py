@@ -12,8 +12,8 @@ class SendMail:
         html_message = render_to_string('invite.html', {'url': url, 'name': invited_user.email})
         plain_message = strip_tags(html_message)
         from_email = 'From <postmaster@sandbox1be520cdb9fe45a0b76cef31d274d7a6.mailgun.org>'
-        to = "gbemilanre@gmail.com"
-        # to = invited_user.email
+        # to = "gbemilanre@gmail.com"
+        to = invited_user.email
 
         mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
 
@@ -23,6 +23,33 @@ class SendMail:
         html_message = render_to_string('welcome.html', {'url': url, 'name': 'David'})
         plain_message = strip_tags(html_message)
         from_email = 'From <postmaster@sandbox1be520cdb9fe45a0b76cef31d274d7a6.mailgun.org>'
-        to = "gbemilanre@gmail.com"
+        to = user.email
 
         mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+
+
+    @staticmethod
+    def send_reminder(user, subject, template, message_data):
+        
+        try:
+
+            html_message = render_to_string(template, message_data)
+            plain_message = strip_tags(html_message)
+            from_email = 'From <postmaster@sandbox1be520cdb9fe45a0b76cef31d274d7a6.mailgun.org>'
+            to = user.email
+
+            mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+
+            return {
+                "message" : "Email Sent",
+                "status": "success"
+            }
+        
+        except Exception:
+
+            return {
+                "message" : "Unable to send mail",
+                "status": "failed"
+            }
+
+

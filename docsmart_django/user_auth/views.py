@@ -8,7 +8,7 @@ from django.contrib import auth
 from django.contrib.auth import get_user_model
 from company.models import Company
 import jwt
-from .helpers.send import SendMail
+from .classes.email.send import SendMail
 
 
 class SignUp(GenericAPIView):

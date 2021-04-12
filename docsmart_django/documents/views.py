@@ -7,6 +7,7 @@ from rest_framework import status, permissions
 from .classes.generator import Generator
 from .classes.directory import Directory
 from .classes.files import Files
+from .classes.access import Access
 
 
 class CreateDocument(GenericAPIView):
@@ -139,3 +140,57 @@ class CreateSingleUserDirectory(GenericAPIView):
 
             return Response({"message": "We're unable to create the folder"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class GrantAccess(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    @staticmethod
+    def post(request):
+
+        receiving_user = request.data.get("receiving_user")
+        document_id = request.data.get("document_id")
+        permissions = request.data.get("permissions")
+
+        if receiving_user is None or document_id is None or permissions is None:
+                return Response({'message': 'receiving_user, document_id or permissions cannot be empty', 'status': 'failed'},
+                                status=status.HTTP_400_BAD_REQUEST)
+        try:
+
+            granting_user = request.user
+            access = Access.grant_access(recieving_user= receiving_user, granting_user= granting_user, document_id= document_id,
+            read= permissions.read, write= permissions.write, delete= permissions.delete )
+
+            return Response(access, status=status.HTTP_200_OK if access.get('status') == "success" else status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        except Exception:
+
+            return Response({"message": "We're unable to grant access to specified user"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class RevokeAccess(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    @staticmethod
+    def post(request):
+
+        revoked_user = request.data.get("revoked_user")
+        document_id = request.data.get("document_id")
+        # permissions = request.data.get("permissions")
+        #  or permissions is None
+
+        if revoked_user is None or document_id is None:
+                return Response({'message': 'revoked_user, document_id or permissions cannot be empty', 'status': 'failed'},
+                                status=status.HTTP_400_BAD_REQUEST)
+        try:
+
+            revoking_user = request.user
+            access = Access.revoke_access(revoking_user= revoked_user, revoked_user= revoked_user, document_id=document_id)
+
+
+            return Response(access, status=status.HTTP_200_OK if access.get('status') == "success" else status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        except Exception:
+
+            return Response({"message": "We're unable to grant access to specified user"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)git 
