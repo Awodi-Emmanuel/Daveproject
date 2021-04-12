@@ -12,9 +12,10 @@ class DocumentsManager(models.Manager):
             self,
             name,
             path,
-            company_id,
             created_by,
-            last_edited_by,
+            company_id=None,
+
+            # last_edited_by,
 
     ):
         """Create basic document."""
@@ -22,32 +23,28 @@ class DocumentsManager(models.Manager):
             raise ValueError('Document must have a name')
         if not path:
             raise ValueError('Document must have a path')
-        if not company_id:
-            raise ValueError('Document must have a company')
         if not created_by:
             raise ValueError('Document must have a user that created it')
-        if not last_edited_by:
-            raise ValueError('Document must have a user who last edited it')
-
-        company = None
+        # if not last_edited_by:
+        #     raise ValueError('Document must have a user who last edited it')
 
         try:
 
-            company = Company.objects.get(id=company_id)
+            company = None if not company_id else Company.objects.get(id=company_id)
+
 
         except Exception:
 
             raise ValueError('Company does not exist')
 
         creating_user = get_user_model().objects.get(id=created_by)
-        editing_user = get_user_model().objects.get(id=last_edited_by)
 
         document = self.model(
             name=name.lower(),
             path=path,
             company_id=company,
             created_by=creating_user,
-            last_edited_by=editing_user,
+            last_edited_by=creating_user,
         )
 
         document.save(using=self._db)

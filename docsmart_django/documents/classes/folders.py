@@ -17,7 +17,7 @@ def get_user_folder(path, user) -> dict:
                     'permissions': get_document_permissions(user, document.id)
                     }
 
-            folder.append(perm) 
+            folder.append(perm)
 
     d = {'name': os.path.basename(path), 'items': folder}
 
@@ -32,7 +32,7 @@ def get_user_folder(path, user) -> dict:
 
 def get_company_folder(path, user, company) -> dict:
     folder = []
-    documents = Engine.fetch_company_files_by_name(os.path.basename(path).lower(),company,user)
+    documents = Engine.fetch_company_files_by_name(os.path.basename(path).lower(), company, user)
 
     if len(documents) > 0:
 
@@ -44,35 +44,34 @@ def get_company_folder(path, user, company) -> dict:
                     'permissions': get_document_permissions(user, document.id)
                     }
 
-            folder.append(perm) 
+            folder.append(perm)
 
     d = {'name': os.path.basename(path), 'items': folder}
 
     if os.path.isdir(path):
         d['type'] = "directory"
-        d['children'] = [get_company_folder(path=os.path.join(path, x), user=user ,company=company) for x in os.listdir(path)]
+        d['children'] = [get_company_folder(path=os.path.join(path, x), user=user, company=company) for x in
+                         os.listdir(path)]
     else:
         d['type'] = "file"
 
     return d
 
 
-def get_document_permissions(user, document):
-
-    permissions = DocumentPermission.objects.get(user_id=user, document_id= document)
+def get_document_permissions(user, document) -> dict:
+    permissions = DocumentPermission.objects.get(user_id=user, document_id=document)
 
     if permissions:
-
         return {
-            'can_view' : permissions.can_view,
-            'can_edit' : permissions.can_edit,
-            'can_delete' : permissions.can_delete
+            'can_view': permissions.can_view,
+            'can_edit': permissions.can_edit,
+            'can_delete': permissions.can_delete
         }
     return {
-            'can_view' : False,
-            'can_edit' : False,
-            'can_delete' : False,
-        }
+        'can_view': False,
+        'can_edit': False,
+        'can_delete': False,
+    }
 
 
 def get_current_directory(path, user) -> dict:

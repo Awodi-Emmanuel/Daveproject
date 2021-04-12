@@ -19,7 +19,7 @@ class Document(models.Model):
     created_at = models.DateTimeField(auto_now=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
-    REQUIRED_FIELDS = ['name', 'created_by', 'path', 'company_id', 'last_edited_by', ]
+    REQUIRED_FIELDS = ['name', 'created_by', 'path', 'last_edited_by', ]
 
     objects = DocumentsManager()
 
