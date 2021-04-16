@@ -94,6 +94,94 @@
 
   <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
 
+# Login:
+* **URL**
+
+  **api/auth/login**
+
+
+* **Method:**
+
+    `POST`
+  
+
+*  **URL Params**
+
+    **Required:**
+
+
+* **Data Params**
+    
+          `{
+            'email':	'string'
+            'password': 'string'
+          }`
+
+* **Success Response:**
+  
+  `Returns the user obkect along with a jwt token tombe passed in the headers for authenticated requests`
+
+  * **Code:** 200 <br />
+    **Content:** 
+    
+        `{
+            "user": {
+                "first_name": "string",
+                "last_name": "string",
+                "phone": "string",
+                "email": "string"
+            },
+            "token": "Token"
+        }`
+    
+
+* **Error Response:**
+
+  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
+
+  * **Code:** 401 Unauthorized <br />
+    **Content:**
+            
+            `{
+                "message": "Invalid credentials",
+                "status": "failed"
+            }`
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    
+        `{ message : "Error message" }`
+
+
+* **Sample Call:**
+
+        var axios = require('axios');
+        var FormData = require('form-data');
+        var data = new FormData();
+        data.append('email', 'gbemilanre@gmail.com');
+        
+        var config = {
+          method: 'post',
+          url: 'http://127.0.0.1:8000/api/auth/login',
+          headers: { 
+            ...data.getHeaders()
+          },
+          data : data
+        };
+        
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+* **Notes:**
+
+
 
 # Complete SignUp:
 * **URL**
