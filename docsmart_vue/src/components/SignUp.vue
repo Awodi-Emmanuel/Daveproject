@@ -1,11 +1,15 @@
 <template>
   <div id="signup">
       <!-- Testing Testing -->
+    <section>
     <form action="">
-        <input type="email">
-        <input type="password">
+        <label for="email">Email:</label>
+        <input type="email"><br>
+         <label for="password">Password:</label>
+        <input type="password"><br>
         <button>Submit</button>
     </form>
+    </section>
   </div>
 </template>
 

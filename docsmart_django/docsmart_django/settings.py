@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'permissions',
     'rest_framework_swagger',
     'drf_yasg',
+    'corsheaders',
 
 ]
 
@@ -56,9 +57,10 @@ EMAIL_HOST_PASSWORD = '1f89430fbbb136c4ffe3b58d6dd61d64-1553bd45-04f1590c'
 EMAIL_USE_TLS = True
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -66,6 +68,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'docsmart_django.urls'
+
+# CORS_ORIGIN_WHITELIST = [
+#     "http://localhost:8080",
+# ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
