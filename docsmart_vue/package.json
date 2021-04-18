@@ -1,5 +1,5 @@
 {
-  "name": "docsmart_vue",
+  "name": "docsmart-vue",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,15 +9,17 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "bulma": "^0.9.2",
+    "bootstrap-vue": "^2.1.0",
+    "config": "^3.3.6",
     "core-js": "^3.6.5",
+    "vee-validate": "^3.4.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0",
-    "vuex-persistedstate": "^4.0.0-beta.3"
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.7.0",
+    "@techiediaries/vue-cli-plugin-bootstrap": "~0.1.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
@@ -28,6 +30,7 @@
     "@vue/eslint-config-standard": "^5.1.2",
     "@vue/test-utils": "^2.0.0-0",
     "babel-eslint": "^10.1.0",
+    "bootstrap": "^4.3.1",
     "chai": "^4.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
@@ -35,6 +38,9 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^7.0.0",
+    "mutationobserver-shim": "^0.3.3",
+    "popper.js": "^1.16.0",
+    "portal-vue": "^2.1.6",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2"
   },

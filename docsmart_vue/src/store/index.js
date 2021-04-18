@@ -1,27 +1,19 @@
 import { createStore } from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
-import auth from './modules/auth'
+
+import { alert } from './alert.module'
+import { account } from './account.module'
+import { users } from './users.module'
 
 export default createStore({
-  modules: {
-    auth
+  state: {
   },
-  plugins: [createPersistedState()]
+  mutations: {
+  },
+  actions: {
+  },
+  modules: {
+    alert,
+    account,
+    users
+  }
 })
-
-// import { createStore } from 'vuex'
-
-// import Vuex from 'vuex'
-// import Vue from 'vue'
-// import createPersistedState from 'vuex-persistedstate'
-// import auth from './modules/auth'
-
-// // Load Vuex
-// Vue.use(Vuex)
-// // Create store
-// export default new Vuex.Store({
-//   modules: {
-//     auth
-//   },
-//   plugins: [createPersistedState()]
-// })

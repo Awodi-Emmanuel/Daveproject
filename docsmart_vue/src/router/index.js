@@ -1,66 +1,34 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-
-import store from '../store'
-import Register from '../views/onboarding/Register'
-import Login from '../views/Auth/Login'
-import Posts from '../views/About'
+import HomePage from '../views/home/HomePage'
+import LoginPage from '../views/login/LoginPage'
+import RegisterPage from '../views/register/RegisterPage'
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register,
-    meta: { guest: true }
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-    meta: { guest: true }
-  },
-  {
-    path: '/posts',
-    name: 'Posts',
-    component: Posts,
-    meta: { requiresAuth: true }
-  }
+
+  { path: '/', component: HomePage },
+  { path: '/login', component: LoginPage },
+  { path: '/register', component: RegisterPage },
+
+  // otherwise redirect to home
+  { path: '/:catchAll(.*)', redirect: '/' }
 ]
 
 const router = createRouter({
-  mode: 'history',
-  history: createWebHistory(),
-  base: process.env.BASE_URL,
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (store.getters.isAuthenticated) {
-      next()
-      return
-    }
-    next('/login')
-  } else {
-    next()
-  }
-})
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login', '/register']
+  const authRequired = !publicPages.includes(to.path)
+  const loggedIn = localStorage.getItem('loginSuccess')
+  console.log(loggedIn)
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.guest)) {
-    if (store.getters.isAuthenticated) {
-      next('/posts')
-      return
-    }
-    next()
-  } else {
-    next()
+  if (authRequired && !loggedIn) {
+    return next('/login')
   }
+  next()
 })
 
 export default router

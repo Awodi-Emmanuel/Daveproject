@@ -1,4 +1,4 @@
-# docsmart_vue
+# docsmart-vue
 
 ## Project setup
 ```

@@ -70,6 +70,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'docsmart_django.urls'
 
 # CORS_ORIGIN_WHITELIST = [
+#
 #     "http://localhost:8080",
 # ]
 
