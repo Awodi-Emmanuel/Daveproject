@@ -1,10 +1,12 @@
-"""Copany manager model module"""
+"""Company manager model module"""
 from django.db import models
+
 
 class CompanyManager(models.Manager):
     """ 
     custom company model
     """
+
     def create_company(
             self,
             company_email,
@@ -13,20 +15,20 @@ class CompanyManager(models.Manager):
             company_address="",
             company_state="",
             company_country="",
-            
-        ):
+
+    ):
         """Create company."""
         if not company_email:
-            raise ValueError('Comany must have an email address')
+            raise ValueError('Company must have an email address')
         if not company_name:
-            raise ValueError('Coamny must have a name')
+            raise ValueError('Company must have a name')
         company = self.model(
             company_email=company_email.lower(),
-            company_name = company_name.lower(),
-            company_phone = company_phone,
-            company_address = company_address,
-            company_state = company_state,
-            company_country = company_country,  
+            company_name=company_name.lower(),
+            company_phone=company_phone,
+            company_address=company_address,
+            company_state=company_state,
+            company_country=company_country,
         )
 
         company.save(using=self._db)

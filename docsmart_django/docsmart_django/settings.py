@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'user_auth',
     'company',
     'documents',
+    'mdeditor',
+    'faq',
     'permissions',
     'rest_framework_swagger',
     'drf_yasg',
@@ -107,6 +109,8 @@ SWAGGER_SETTINGS = {
     }
 
 }
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -179,5 +183,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
+MEDIA_URL = '/media/'
 
 django_heroku.settings(locals())

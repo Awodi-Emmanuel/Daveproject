@@ -3,11 +3,11 @@ from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth import get_user_model
 
 
-
 class UserManager(BaseUserManager):
     """ 
     custom user model
     """
+
     def create_user(
             self,
             first_name="",
@@ -18,20 +18,20 @@ class UserManager(BaseUserManager):
             is_active=False,
             is_staff=False,
             is_admin=False
-        ):
+    ):
         """Create user."""
         if not email:
             raise ValueError('Users must have an email address')
         user = self.model(
             email=self.normalize_email(email),
-            first_name = first_name,
-            last_name = last_name,
-            phone = phone,   
+            first_name=first_name,
+            last_name=last_name,
+            phone=phone,
         )
 
-        user.is_active=is_active
-        user.is_staff=is_staff
-        user.is_admin=is_admin
+        user.is_active = is_active
+        user.is_staff = is_staff
+        user.is_admin = is_admin
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -42,7 +42,7 @@ class UserManager(BaseUserManager):
             is_active=False,
             is_staff=False,
             is_admin=False
-        ):
+    ):
         """Create default user."""
         if not email:
             raise ValueError('Users must have an email address')
@@ -51,9 +51,9 @@ class UserManager(BaseUserManager):
             email=self.normalize_email(email),
 
         )
-        user.is_active=is_active
-        user.is_staff=is_staff
-        user.is_admin=is_admin
+        user.is_active = is_active
+        user.is_staff = is_staff
+        user.is_admin = is_admin
         user.save(using=self._db)
         return user
 
@@ -69,7 +69,7 @@ class UserManager(BaseUserManager):
             is_active=True,
             is_staff=False,
             is_admin=False
-        ):
+    ):
         """complete user onboarding."""
 
         if not email:
@@ -90,9 +90,9 @@ class UserManager(BaseUserManager):
             user.first_name = first_name
             user.last_name = last_name
             user.phone = phone
-            user.is_active=is_active
-            user.is_staff=is_staff
-            user.is_admin=is_admin
+            user.is_active = is_active
+            user.is_staff = is_staff
+            user.is_admin = is_admin
             user.set_password(password)
             user.save()
             return user
@@ -104,11 +104,13 @@ class UserManager(BaseUserManager):
         else:
             return None
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, password, first_name=None, last_name=None):
         """Create a superuser."""
         return self.create_user(
-            email,
-            password,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=password,
             is_active=True,
             is_staff=True,
             is_admin=True

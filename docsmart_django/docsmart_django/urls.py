@@ -19,26 +19,32 @@ from django.conf.urls import url
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="DocSmart APIs",
-      default_version='v1',
-      description="DocSmart VI APIs",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@docsmart.com"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="DocSmart APIs",
+        default_version='v1',
+        description="DocSmart VI APIs",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@docsmart.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('user_auth.urls')),
     path('api/documents/', include('documents.urls')),
-    url('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url('/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    url(r'mdeditor/', include('mdeditor.urls'))
 
 ]
+
+if settings.DEBUG:
+    # static files (images, css, javascript, etc.)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
