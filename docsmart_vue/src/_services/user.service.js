@@ -7,6 +7,7 @@ export const userService = {
   login,
   logout,
   register,
+  completesRegistration,
   getAll,
   getById,
   update,
@@ -39,13 +40,36 @@ function logout () {
 }
 
 function register (user) {
+  var User = new FormData()
+  User.append('email', user.email)
+
   const requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(user)
+    // headers: { 'Content-Type': 'application/json' },
+    body: User
   }
 
-  const response = fetch('/users/register', requestOptions)
+  const response = fetch(AUTH_BASE_URL + '/signup', requestOptions)
+  return handleResponse(response)
+}
+
+function completesRegistration (user) {
+  var User = new FormData()
+  User.append('email', user.email)
+  User.append('first_name', user.email)
+  User.append('last_name', user.email)
+  User.append('phone', user.email)
+  User.append('password', user.email)
+  User.append('last_name', user.email)
+  User.append('company_name', user.email)
+  User.append('company_email', user.email)
+
+  const requestOptions = {
+    method: 'POST',
+    body: User
+  }
+
+  const response = fetch(AUTH_BASE_URL + '/complete-signup', requestOptions)
   return handleResponse(response)
 }
 

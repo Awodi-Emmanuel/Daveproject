@@ -3,24 +3,9 @@
         <h2>Register</h2>
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" v-model="user.firstName" name="firstName" class="form-control" :class="{ 'is-invalid': submitted && !user.firstName }" />
-                <div v-show="submitted && !user.firstName" class="invalid-feedback">First Name is invalid</div>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" v-model="user.lastName" name="lastName" class="form-control" :class="{ 'is-invalid': submitted && !user.lastName }" />
-                <div v-show="submitted && !user.lastName" class="invalid-feedback">Last name is invalid</div>
-            </div>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" v-model="user.username" name="username" class="form-control" :class="{ 'is-invalid': submitted && !user.username }" />
-                <div v-show="submitted && !user.username" class="invalid-feedback">Username is invalid</div>
-            </div>
-            <div class="form-group">
-                <label htmlFor="password">Password</label>
-                <input type="password" v-model="user.password" class="form-control" :class="{ 'is-invalid': submitted && !user.password }" />
-                <div v-show="submitted && !user.password" class="invalid-feedback">Password is invalid</div>
+                <label for="firstName">Email</label>
+                <input type="text" v-model="user.email" name="email" class="form-control" :class="{ 'is-invalid': submitted && !user.email }" />
+                <div v-show="submitted && !user.email" class="invalid-feedback">Email is invalid</div>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary" :disabled="status.registering">Register</button>
@@ -38,10 +23,7 @@ export default {
   data () {
     return {
       user: {
-        firstName: '',
-        lastName: '',
-        username: '',
-        password: ''
+        email: ''
       },
       submitted: false
     }
@@ -53,7 +35,7 @@ export default {
     ...mapActions('account', ['register']),
     handleSubmit (e) {
       this.submitted = true
-      if (this.user.firstName && this.user.lastName && this.user.firstName && this.user.username && this.user.password) {
+      if (this.user.email) {
         this.register(this.user)
       }
     }

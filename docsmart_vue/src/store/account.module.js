@@ -34,6 +34,26 @@ const actions = {
       .then(
         user => {
           commit('registerSuccess', user)
+          router.push('/complete-registration')
+          setTimeout(() => {
+            // display success message after route change completes
+            dispatch('alert/success', 'Registration successful', { root: true })
+          })
+        },
+        error => {
+          commit('registerFailure', error)
+          dispatch('alert/error', error, { root: true })
+        }
+      )
+  },
+
+  completeRegistration ({ dispatch, commit }, user) {
+    commit('registerRequest', user)
+
+    userService.completesRegistration(user)
+      .then(
+        user => {
+          commit('registerSuccess', user)
           router.push('/login')
           setTimeout(() => {
             // display success message after route change completes
