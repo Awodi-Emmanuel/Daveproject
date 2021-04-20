@@ -2,6 +2,11 @@
 ----
   <_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>
 * **Base Url: https://docsmart.herokuapp.com/**
+* **Swagger Url: https://docsmart.herokuapp.com/swagger**
+* **Admin Url: https://docsmart.herokuapp.com/admin**
+
+* Admin Email: admin@docsmart.com
+* Admin Password: Admin123_
 
 # Sign Up:
 * **URL**
