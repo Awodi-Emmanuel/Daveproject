@@ -15,13 +15,14 @@ class UserManager(BaseUserManager):
             phone="",
             email="",
             password="",
-            is_active=False,
+            is_active=True,
             is_staff=False,
             is_admin=False
     ):
         """Create user."""
         if not email:
             raise ValueError('Users must have an email address')
+
         user = self.model(
             email=self.normalize_email(email),
             first_name=first_name,

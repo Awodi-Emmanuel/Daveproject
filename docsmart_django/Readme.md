@@ -8,10 +8,10 @@
 * Admin Email: admin@docsmart.com
 * Admin Password: Admin123_
 
-# Sign Up:
+# Register:
 * **URL**
 
-  **api/auth/signup**
+  **/api/auth/register**
 
 
 * **Method:**
@@ -22,15 +22,19 @@
 *  **URL Params**
 
     **Required:**
-   
-   `email=[string]`
+
 
 
 * **Data Params**
     
-          `{
-            email:	string
-          }`
+         `{
+        "first_name": "String",
+        "last_name": "String",
+        "email": "String",
+        "password": "String_",
+        "company_number": "String",
+        "company_name": "String"
+        }`
   
 
 
@@ -41,7 +45,17 @@
   * **Code:** 201 <br />
     **Content:** 
     
-        `{ email : string }`
+            `{
+            "user_object": {
+                "first_name": "string",
+                "last_name": "string",
+                "email": "string"
+            },
+            "company_object": {
+                "company_number": "string",
+                "company_name": "string"
+            }
+        }`
  
 
 * **Error Response:**
@@ -51,53 +65,67 @@
   * **Code:** 400 BAD REQUEST <br />
     **Content:** 
     
-            `{
-            "email": [
-                "This field is required."
-            ]
-            }`
+        `{
+        "email": [
+            "This field is required."
+        ]
+        }`
     
-            `{
-            "email": [
-                "Email is already in use"
+        `{
+        "user_error": {
+        "fieldname": [
+                "error message"
+            ]},
+        "company_error": {
+            "fieldname": [
+                "error message"
             ]
-            }`
+        }
+    }`
 
   OR
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
     
-        `{ message : "Error message" }`
+            `{ message : "Error message", 'status': Failed }`
 
 
 * **Sample Call:**
 
       var axios = require('axios');
-        var data = JSON.stringify({
-          "email": "email@gmail.com"
-        });
-    
-        var config = {
-          method: 'post',
-          url: 'http://127.0.0.1:8000/api/auth/signup',
-          headers: { 
-            'Content-Type': 'application/json'
-          },
-          data : data
-        };
-    
-        axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      var data = JSON.stringify({
+        "first_name": "David",
+        "last_name": "Lanre",
+        "phone": "2348120816502",
+        "email": "gbemilanre@gmail.com",
+        "password": "Kaminari123_",
+        "company_name": "Kaminaronn",
+        "company_email": "kaminarin@gmail.com"
+      });
+
+      var config = {
+        method: 'post',
+        url: 'http://127.0.0.1:8000/api/auth/complete-signup',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
 
 * **Notes:**
 
   <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
+
 
 # Login:
 * **URL**
@@ -186,127 +214,6 @@
 
 * **Notes:**
 
-
-
-# Complete SignUp:
-* **URL**
-
-  **/api/auth/complete-signup**
-
-
-* **Method:**
-
-    `POST`
-  
-
-*  **URL Params**
-
-    **Required:**
-
-
-
-* **Data Params**
-    
-         `{
-        "first_name": "String",
-        "last_name": "String",
-        "phone": "String",
-        "email": "String",
-        "password": "String_",
-        "company_name": "String",
-        "company_email": "String"
-        }`
-  
-
-
-* **Success Response:**
-  
-  `Returns user email and sends an email for user to complete their registration`
-
-  * **Code:** 201 <br />
-    **Content:** 
-    
-            `{
-            "user_object": {
-                "first_name": "string",
-                "last_name": "string",
-                "phone": "string",
-                "email": "string"
-            },
-            "company_object": {
-                "company_email": "string",
-                "company_name": "string"
-            }
-        }`
- 
-
-* **Error Response:**
-
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
-  * **Code:** 400 BAD REQUEST <br />
-    **Content:** 
-    
-        `{
-        "email": [
-            "This field is required."
-        ]
-        }`
-    
-        `{
-        "user_error": {
-        "fieldname": [
-                "error message"
-            ]},
-        "company_error": {
-            "fieldname": [
-                "error message"
-            ]
-        }
-    }`
-
-  OR
-
-  * **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:** 
-    
-            `{ message : "Error message", 'status': Failed }`
-
-
-* **Sample Call:**
-
-      var axios = require('axios');
-      var data = JSON.stringify({
-        "first_name": "David",
-        "last_name": "Lanre",
-        "phone": "2348120816502",
-        "email": "gbemilanre@gmail.com",
-        "password": "Kaminari123_",
-        "company_name": "Kaminaronn",
-        "company_email": "kaminarin@gmail.com"
-      });
-
-      var config = {
-        method: 'post',
-        url: 'http://127.0.0.1:8000/api/auth/complete-signup',
-        headers: { 
-          'Content-Type': 'application/json'
-        },
-        data : data
-      };
-
-      axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-
-* **Notes:**
-
-  <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
 
 # Invite User:
 * **URL**

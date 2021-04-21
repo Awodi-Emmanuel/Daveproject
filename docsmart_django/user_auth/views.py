@@ -1,8 +1,8 @@
 from rest_framework.generics import GenericAPIView, UpdateAPIView
-from .serializers import UserSerializer, LoginSerializer, SignUpSerializer, ChangePasswordSerializer, ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer
+from .serializers import UserSerializer, LoginSerializer, SignUpSerializer, ChangePasswordSerializer, \
+    ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer
 from company.serializers import CompanySerializer
 from rest_framework.response import Response
-from rest_framework import status
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth import get_user_model
@@ -12,12 +12,11 @@ from user.models import User
 import jwt
 from .classes.email.send import SendMail
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
+from django.utils.encoding import smart_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from .helpers.utils import Util
-from django.shortcuts import redirect
 from django.http import HttpResponsePermanentRedirect
 import os
 
@@ -25,6 +24,8 @@ import os
 class CustomRedirect(HttpResponsePermanentRedirect):
 
     allowed_schemes = [os.environ.get('APP_SCHEME'), 'http', 'https']
+
+
 class SignUp(GenericAPIView):
     serializer_class = SignUpSerializer
 
@@ -37,6 +38,32 @@ class SignUp(GenericAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Register(GenericAPIView):
+    serializer_class = UserSerializer
+
+    @staticmethod
+    def post(request):
+
+        user_serializer = UserSerializer(data=request.data)
+        company_serializer = CompanySerializer(data=request.data)
+
+        if user_serializer.is_valid() and company_serializer.is_valid():
+
+            user = user_serializer.save()
+            company_id = company_serializer.save()
+            Company.add_to_company(user=user, company=company_id)
+            SendMail.send_confirmation_mail(url='http://127.0.0.1:8000/api/auth/complete-signup', user=user)
+            response_data = {'user_object': user_serializer.data, 'company_object': company_serializer.data}
+            return Response(response_data, status=status.HTTP_201_CREATED)
+
+        else:
+
+            user_serializer.is_valid()
+            company_serializer.is_valid()
+            error_data = {'user_error': user_serializer.errors, 'company_error': company_serializer.errors}
+            return Response(error_data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class InviteUser(GenericAPIView):
@@ -130,6 +157,7 @@ class LoginView(GenericAPIView):
             return Response(data, status=status.HTTP_200_OK)
 
         return Response({'message': 'Invalid credentials', 'status': 'failed'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 class ChangePasswordView(UpdateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
