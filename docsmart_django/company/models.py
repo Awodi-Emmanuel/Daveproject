@@ -5,7 +5,7 @@ from .manager import CompanyManager
 class Company(models.Model):
     company_name = models.CharField(verbose_name="Company Name", max_length=50, unique=True)
     company_number = models.CharField(verbose_name="Company Number", max_length=254, unique=True)
-    company_email = models.EmailField(verbose_name="Company Email", max_length=254, unique=True, null=True)
+    company_email = models.EmailField(verbose_name="Company Email", max_length=254, null=True)
     company_address = models.CharField(verbose_name="Company Address", max_length=200, null=True)
     company_country = models.CharField(verbose_name="Company Country", max_length=50, null=True)
     company_state = models.CharField(verbose_name="Company State", max_length=50, null=True)
