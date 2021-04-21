@@ -1,5 +1,4 @@
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
-
 from .models import Document
 from .serializers import DocumentSerializer, FetchUserDocumentsSerializer
 from rest_framework.response import Response
