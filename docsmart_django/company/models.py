@@ -1,5 +1,4 @@
 from django.db import models
-from roles.models import Role
 from .manager import CompanyManager
 
 
@@ -12,7 +11,6 @@ class Company(models.Model):
     company_state = models.CharField(verbose_name="Company State", max_length=50, null=True)
     company_phone = models.CharField(verbose_name="Company Phone", max_length=20, null=True)
     user = models.ManyToManyField("user.User", verbose_name="User", blank=True)
-    role = models.ManyToManyField(Role, verbose_name="Role", blank=True)
 
     REQUIRED_FIELDS = ['company_name', 'company_email', ]
 
@@ -22,11 +20,9 @@ class Company(models.Model):
     def add_to_company(cls, user, company):
         company.user.add(user)
 
-
     @classmethod
     def remove_from_company(cls, user, company):
         company.user.remove(user)
-
 
     @classmethod
     def assign_role(cls, role, company):
@@ -36,15 +32,12 @@ class Company(models.Model):
     def remove_role(cls, role, company):
         company.role.remove(role)
 
-
     class Meta:
         verbose_name = "Company"
         verbose_name_plural = "Companies"
 
-
     def __str__(self):
         return str(self.id)
-
 
     def get_absolute_url(self):
         return reverse("Company_detail", kwargs={"pk": self.pk})

@@ -31,6 +31,7 @@ class CompanySerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Company.objects.create_company(**validated_data)
 
+
 class CompanyUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
