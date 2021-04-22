@@ -27,14 +27,14 @@
 
 * **Data Params**
     
-         `{
-        "first_name": "String",
-        "last_name": "String",
-        "email": "String",
-        "password": "String_",
-        "company_number": "String",
-        "company_name": "String"
-        }`
+           `{
+          "first_name": "String",
+          "last_name": "String",
+          "email": "String",
+          "password": "String_",
+          "company_number": "String",
+          "company_name": "String"
+          }`
   
 
 
@@ -45,17 +45,17 @@
   * **Code:** 201 <br />
     **Content:** 
     
-            `{
-            "user_object": {
-                "first_name": "string",
-                "last_name": "string",
-                "email": "string"
-            },
-            "company_object": {
-                "company_number": "string",
-                "company_name": "string"
-            }
-        }`
+              `{
+              "user_object": {
+                  "first_name": "string",
+                  "last_name": "string",
+                  "email": "string"
+              },
+              "company_object": {
+                  "company_number": "string",
+                  "company_name": "string"
+              }
+          }`
  
 
 * **Error Response:**
@@ -632,6 +632,86 @@
 
   <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
 
+
+# Fetch FAQ:
+* **URL**
+
+  **api/auth/login**
+
+
+* **Method:**
+
+    `GET`
+  
+
+*  **URL Params**
+
+    **Required:**
+
+
+* **Data Params**
+
+* **Success Response:**
+  
+  `Returns a collections of FAQs`
+
+  * **Code:** 200 <br />
+    **Content:** 
+    
+                [
+                  {
+                "subject": "Testing Faq",
+                "category": "Payment",
+                "content": "This is a test",
+                "created_at": "2021-04-22T12:20:53.476824Z",
+                "updated_at": "2021-04-22T12:20:53.476824Z"
+                  }
+                ]
+    
+
+* **Error Response:**
+
+  * **Code:** 200 success <br />
+    **Content:**
+            
+            `{
+                "message": "No FAQs",
+                "status": "success"
+            }`
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    
+        `{ message : "Error message" }`
+
+
+* **Sample Call:**
+
+        var axios = require('axios');
+        var FormData = require('form-data');
+        var data = new FormData();
+        data.append('email', 'gbemilanre@gmail.com');
+        
+        var config = {
+          method: 'post',
+          url: 'http://127.0.0.1:8000/api/auth/login',
+          headers: { 
+            ...data.getHeaders()
+          },
+          data : data
+        };
+        
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+* **Notes:**
 
 # Fetch User Document:
 * **URL**

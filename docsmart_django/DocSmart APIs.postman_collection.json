@@ -466,6 +466,35 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Fetch FAQ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/faq/fetch",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"faq",
+								"fetch"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

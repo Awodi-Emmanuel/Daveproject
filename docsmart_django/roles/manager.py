@@ -11,6 +11,7 @@ class RolesManager(models.Manager):
             self,
             role,
             user,
+            company
             
 
     ):
@@ -22,6 +23,7 @@ class RolesManager(models.Manager):
         roles = self.model(
             role=role,
             user=user,
+            company=company
         )
 
         roles.save(using=self._db)

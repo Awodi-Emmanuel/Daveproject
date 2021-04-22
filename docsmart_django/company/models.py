@@ -24,14 +24,6 @@ class Company(models.Model):
     def remove_from_company(cls, user, company):
         company.user.remove(user)
 
-    @classmethod
-    def assign_role(cls, role, company):
-        company.role.add(role)
-
-    @classmethod
-    def remove_role(cls, role, company):
-        company.role.remove(role)
-
     class Meta:
         verbose_name = "Company"
         verbose_name_plural = "Companies"

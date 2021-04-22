@@ -17,8 +17,8 @@ class Role(models.Model):
         max_length=5,
         choices=[(tag, tag.value) for tag in Roles]
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    company = models.ForeignKey('company.Company', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    company = models.ForeignKey('company.Company', on_delete=models.CASCADE, blank=True)
 
     REQUIRED_FIELDS = ['role', 'user', ]
 

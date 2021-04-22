@@ -35,3 +35,5 @@ class CompanySerializer(serializers.ModelSerializer):
 class CompanyUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
+
+        fields = '__all__'
