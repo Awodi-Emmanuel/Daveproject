@@ -16,17 +16,21 @@ class CompanySerializer(serializers.ModelSerializer):
 
         if company_number is None:
             raise serializers.ValidationError(
-                {'company_email': 'Company Email cannot be empty'})
+                {'company_number': 'Company number cannot be empty'})
         if company_name is None:
             raise serializers.ValidationError(
                 {'company_name': 'Company Name cannot be empty'})
         if Company.objects.filter(company_email=company_number).exists():
             raise serializers.ValidationError(
-                {'company_email': 'Company email is already in use'})
+                {'company_number': 'Company number is already in use'})
         if Company.objects.filter(company_name=company_name.lower()).exists():
             raise serializers.ValidationError(
-                {'company_name': 'Company email is already in use'})
+                {'company_name': 'Company name is already in use'})
         return super().validate(attrs)
 
     def create(self, validated_data):
         return Company.objects.create_company(**validated_data)
+
+class CompanyUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
