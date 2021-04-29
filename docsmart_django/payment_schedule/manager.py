@@ -8,10 +8,10 @@ class PaymentScheduleManager(models.Manager):
 
     def create_schedule(
             self,
-            item,
-            price,
-            start,
-            finish
+            item=None,
+            price=None,
+            start=None,
+            finish=None
     ):
         schedule = self.model(
             item=item,

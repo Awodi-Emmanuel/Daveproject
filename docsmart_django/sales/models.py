@@ -7,11 +7,13 @@ from customer.models import Customer
 from documents.models import Document
 from payment_schedule.models import PaymentSchedule
 from sales.manager import SalesManager
+from sale_lines.models import Lines
 from user.models import User
 from vat.models import VAT
 
 
 class Status(Enum):
+    DRAFT = "Draft"
     ACCEPTED = "Accepted"
     IN_PROGRESS = "In Progress"
     REJECTED = "Rejected"
@@ -31,25 +33,28 @@ class Sales(models.Model):
     title = models.CharField(verbose_name="title", max_length=500)
     # template = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     status = models.CharField(
-        max_length=5,
-        choices=[(tag, tag.value) for tag in Status], default=Status.IN_PROGRESS
+        max_length=200,
+        choices=[(tag, tag.value) for tag in Status], default=Status.DRAFT
     )
-    total = models.DecimalField(default=0.00, max_digits=9, decimal_places=3)
-    discount = models.DecimalField(default=0.00, max_digits=9, decimal_places=3)
-    vat = models.ForeignKey(VAT, on_delete=models.CASCADE, blank=True)
+    total = models.DecimalField(default=0.00, max_digits=9, decimal_places=3, null=True)
+    discount = models.DecimalField(default=0.00, max_digits=9, decimal_places=3, null=True)
+    vat = models.ForeignKey(VAT, on_delete=models.CASCADE, blank=True, null=True)
     signature_type = models.CharField(
-        max_length=5,
+        max_length=200,
         choices=[(tag, tag.value) for tag in SignatureType], default=SignatureType.BANK_ID
     )
     currency = models.CharField(
         max_length=5,
-        choices=[(tag, tag.value) for tag in Currency], default=Currency.KRN
+        choices=[(tag, tag.value) for tag in Currency], default=Currency.KRN,
     )
     customer = models.ManyToManyField(Customer, verbose_name="Customer", blank=True)
+    lines = models.ManyToManyField(Lines, verbose_name="Lines", blank=True)
+    
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True)
-    payment_schedule = models.ForeignKey(PaymentSchedule, on_delete=models.CASCADE, blank=True)
-    document = models.ForeignKey(Document, on_delete=models.CASCADE, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
+    payment_schedule = models.ForeignKey(PaymentSchedule, on_delete=models.CASCADE, blank=True, null=True)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE, blank=True, null=True)
 
     REQUIRED_FIELDS = ['title', 'total', 'owner']
 

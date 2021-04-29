@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'vat',
     'payment_schedule',
     'sales',
+    'sale_lines',
     'customer',
     'rest_framework_swagger',
     'rest_framework_simplejwt',

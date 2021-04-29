@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class SalesManager(models.Manager):
     """
     custom sales model
@@ -8,18 +7,17 @@ class SalesManager(models.Manager):
 
     def create_sales_offer(
             self,
-            title='',
-            status='',
-            total='',
-            discount='',
-            vat='',
-            signature_type='',
-            currency='',
-            customer='',
-            owner='',
-            company='',
-            payment_schedule='',
-            document='',
+            title=None,
+            status="Draft",
+            total=None,
+            discount=None,
+            vat=None,
+            signature_type="Bank ID",
+            currency="Krona",
+            owner=None,
+            company=None,
+            payment_schedule=None,
+            document=None,
     ):
         sales_offer = self.model(
             title=title,
@@ -29,7 +27,6 @@ class SalesManager(models.Manager):
             vat=vat,
             signature_type=signature_type,
             currency=currency,
-            customer=customer,
             owner=owner,
             company=company,
             payment_schedule=payment_schedule,

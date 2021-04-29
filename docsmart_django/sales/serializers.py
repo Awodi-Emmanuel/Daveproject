@@ -33,15 +33,15 @@ class CreateSalesOfferSerializer(serializers.ModelSerializer):
     title = serializers.CharField(
         max_length=255, min_length=8)
     status = serializers.CharField(max_length=255, min_length=4, required=False)
-    total = serializers.DecimalField(max_digits=9, decimal_places=3)
+    total = serializers.DecimalField(max_digits=9, decimal_places=3, required=False)
     discount = serializers.DecimalField(max_digits=9, decimal_places=3, required=False)
     signature_type = serializers.CharField(
-        max_length=255, min_length=8, required=False)
+        max_length=255, min_length=3, required=False)
     currency = serializers.CharField(max_length=255, min_length=4, required=False)
     customer = serializers.CharField(required=False)
-    owner = serializers.IntegerField(required=True)
+    owner = serializers.IntegerField(required=False, write_only=True)
     company = serializers.IntegerField(required=False)
-    payment_schedule = serializers.IntegerField(required=False)
+    payment_schedule = serializers.IntegerField(required=False, write_only=True)
     document = serializers.IntegerField(required=False)
 
     class Meta:
@@ -62,10 +62,10 @@ class CreatePaymentSchedule(serializers.ModelSerializer):
     """
 
     item = serializers.CharField(
-        max_length=255, min_length=8)
-    price = serializers.CharField(max_length=255, min_length=4)
-    start = serializers.DateTimeField()
-    finish = serializers.DateTimeField()
+        max_length=255, min_length=8, required=True)
+    price = serializers.CharField(max_length=255, min_length=4, required=False)
+    start = serializers.DateTimeField(required=False)
+    finish = serializers.DateTimeField(required=False)
 
     class Meta:
         model = PaymentSchedule
@@ -74,3 +74,11 @@ class CreatePaymentSchedule(serializers.ModelSerializer):
     def create(self, validated_data):
 
         return PaymentSchedule.objects.create_schedule(**validated_data)
+
+
+class RetrieveSalesOfferSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Sales
+        depth = 1
+        fields = '__all__'
