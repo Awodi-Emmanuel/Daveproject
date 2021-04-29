@@ -42,3 +42,9 @@ class CreateCustomerSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
 
         return Customer.objects.create_customer(**validated_data)
+
+
+class FetchCustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = '__all__'
