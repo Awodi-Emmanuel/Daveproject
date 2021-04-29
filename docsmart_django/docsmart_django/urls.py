@@ -42,6 +42,7 @@ urlpatterns = [
     path('api/auth/', include('user_auth.urls')),
     path('api/documents/', include('documents.urls')),
     path('api/sales/', include('sales.urls')),
+    path('api/customer/', include('customer.urls')),
     url('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     url(r'mdeditor/', include('mdeditor.urls'))

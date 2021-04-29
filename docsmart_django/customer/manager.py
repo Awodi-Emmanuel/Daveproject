@@ -23,19 +23,27 @@ class CustomerManager(models.Manager):
             first_name='',
             last_name='',
             email='',
+            related_company='',
+            company_email='',
             company_name='',
             company_number='',
             company_address='',
-            country=''
+            company_zipcode='',
+            company_city='',
+            company_country=''
     ):
         customer = self.model(
             first_name=first_name,
             last_name=last_name,
             email=email,
+            related_company=related_company,
+            company_email=company_email,
             company_name=company_name,
             company_number=company_number,
             company_address=company_address,
-            country=country
+            company_zipcode=company_zipcode,
+            company_city=company_city,
+            company_country=company_country
         )
 
         customer.save(using=self._db)
