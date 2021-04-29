@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'vat',
     'payment_schedule',
     'sales',
-    'notification',
+    'notifications',
     'logs',
     'sale_lines',
     'customer',
