@@ -1,5 +1,5 @@
 from django.db import models
-from .manager import FAQManager
+from .manager import NotificationsManager
 from mdeditor.fields import MDTextField
 from user.models import User
 
@@ -12,9 +12,9 @@ class Notification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    REQUIRED_FIELDS = ['subject', 'category', 'content']
+    REQUIRED_FIELDS = ['subject', 'content', 'user']
 
-    objects = FAQManager()
+    objects = NotificationsManager()
 
     class Meta:
         verbose_name = "Notification"
@@ -24,4 +24,4 @@ class Notification(models.Model):
         return str(self.subject)
 
     def get_absolute_url(self):
-        return reverse("FAQ_detail", kwargs={"pk": self.pk})
+        return reverse("Notification_detail", kwargs={"pk": self.pk})
