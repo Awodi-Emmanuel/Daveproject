@@ -74,12 +74,12 @@ class Sales(models.Model):
     
 
     @classmethod
-    def add_line_to_offer(cls, line, sales):
-        sales.line.add(customer)
+    def add_line_to_offer(cls, line, offer):
+        offer.lines.add(line)
 
     @classmethod
-    def remove_lines_from_offer(cls, line, sales):
-        sales.line.remove(customer)
+    def remove_lines_from_offer(cls, line, offer):
+        offer.lines.remove(line)
 
     def __str__(self):
         return str(self.title)

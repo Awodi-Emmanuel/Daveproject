@@ -32,7 +32,14 @@ class CreateSalesOffer(GenericAPIView):
 
                 for c in request.data.get('customers'):
 
-                    Sales.add_customer_to_offer(customer = c, offer = offer) 
+                    Sales.add_line_to_offer(customer = c, offer = offer) 
+
+            if request.data.get('lines'):
+
+                for l in request.data.get('lines'):
+
+                    Sales.add_line_to_offer(line = l, offer = offer) 
+
             response_data = {'sale_object': sale_serializer.data}
             return Response(response_data, status=status.HTTP_201_CREATED)
 
@@ -46,7 +53,13 @@ class CreateSalesOffer(GenericAPIView):
 
                 for c in request.data.get('customers'):
 
-                    Sales.add_customer_to_offer(customer = c, offer = offer) 
+                    Sales.add_customer_to_offer(customer = c, offer = offer)
+
+            if request.data.get('lines'):
+
+                for l in request.data.get('lines'):
+
+                    Sales.add_line_to_offer(line = l, offer = offer)  
 
             response_data = {'sale_object': sale_serializer.data, 'schedule_object': payment_serializer.data}
             return Response(response_data, status=status.HTTP_201_CREATED) 
