@@ -38,14 +38,14 @@ class CreateSalesOfferSerializer(serializers.ModelSerializer):
     signature_type = serializers.CharField(
         max_length=255, min_length=3, required=False)
     currency = serializers.CharField(max_length=255, min_length=4, required=False)
-    customer = serializers.CharField(required=False)
     owner = serializers.IntegerField(required=False, write_only=True)
-    company = serializers.IntegerField(required=False)
+    related_company = serializers.IntegerField(required=False, write_only=True)
     payment_schedule = serializers.IntegerField(required=False, write_only=True)
     document = serializers.IntegerField(required=False)
 
     class Meta:
         model = Sales
+        depth = 1
         fields = '__all__'
 
     def create(self, validated_data):

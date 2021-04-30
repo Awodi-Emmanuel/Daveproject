@@ -12,10 +12,11 @@ class SalesManager(models.Manager):
             total=None,
             discount=None,
             vat=None,
+            related_company=None,
             signature_type="Bank ID",
             currency="Krona",
             owner=None,
-            company=None,
+            # company=None,
             payment_schedule=None,
             document=None,
     ):
@@ -25,10 +26,11 @@ class SalesManager(models.Manager):
             total=total,
             discount=discount,
             vat=vat,
+            related_company=related_company,
             signature_type=signature_type,
             currency=currency,
             owner=owner,
-            company=company,
+            # company=company,
             payment_schedule=payment_schedule,
             document=document
         )

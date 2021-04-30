@@ -4,9 +4,6 @@ from .serializer import CreateCustomerSerializer
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from company.models import Company
-import json
-from django.forms.models import model_to_dict
-from customer import serializer
 from customer.models import Customer
 from customer.serializer import FetchCustomerSerializer
 

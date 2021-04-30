@@ -52,7 +52,7 @@ class Sales(models.Model):
     
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
+    related_company = models.ForeignKey(Company, on_delete=models.CASCADE, null=False)
     payment_schedule = models.ForeignKey(PaymentSchedule, on_delete=models.CASCADE, blank=True, null=True)
     document = models.ForeignKey(Document, on_delete=models.CASCADE, blank=True, null=True)
 
@@ -63,6 +63,23 @@ class Sales(models.Model):
     class Meta:
         verbose_name = "Sale"
         verbose_name_plural = "Sales"
+
+    @classmethod
+    def add_customer_to_offer(cls, customer, offer):
+        offer.customer.add(customer)
+
+    @classmethod
+    def remove_customer_from_offer(cls, customer, offer):
+        offer.customer.remove(customer)
+    
+
+    @classmethod
+    def add_line_to_offer(cls, line, sales):
+        sales.line.add(customer)
+
+    @classmethod
+    def remove_lines_from_offer(cls, line, sales):
+        sales.line.remove(customer)
 
     def __str__(self):
         return str(self.title)
