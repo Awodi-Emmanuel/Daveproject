@@ -3,6 +3,7 @@ from rest_framework import permissions, status
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from customer.serializer import CreateCustomerSerializer
+from logs.models import Logs
 from sales.serializers import CreatePaymentSchedule, CreateSalesOfferSerializer, RetrieveSalesOfferSerializer
 from sales.models import Sales
 from company.models import Company
@@ -33,6 +34,8 @@ class CreateSalesOffer(GenericAPIView):
                 for line in request.data.get('lines'):
                     Sales.add_line_to_offer(line=line, offer=offer)
 
+            Logs.objects.create_log(performed_by=request.user.id, affected_user=request.user.id,
+                                    loggable=offer, action='Create Sales Offer')
             response_data = {'sale_object': sale_serializer.data}
             return Response(response_data, status=status.HTTP_201_CREATED)
 
@@ -52,6 +55,8 @@ class CreateSalesOffer(GenericAPIView):
                 for line in request.data.get('lines'):
                     Sales.add_line_to_offer(line=line, offer=offer)
 
+            Logs.objects.create_log(performed_by=request.user.id, affected_user=request.user.id,
+                                    loggable=offer, action='Create Sales Offer')
             response_data = {'sale_object': sale_serializer.data, 'schedule_object': payment_serializer.data}
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
