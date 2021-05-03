@@ -51,3 +51,4 @@ Thumbs.db
 .env
 docsmart_django/docsmart-env/
 venv/
+docsmart-venv/

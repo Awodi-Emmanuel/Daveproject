@@ -49,7 +49,6 @@ class Sales(models.Model):
     )
     customer = models.ManyToManyField(Customer, verbose_name="Customer", blank=True)
     lines = models.ManyToManyField(Lines, verbose_name="Lines", blank=True)
-    
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     related_company = models.ForeignKey(Company, on_delete=models.CASCADE, null=False)
@@ -71,7 +70,6 @@ class Sales(models.Model):
     @classmethod
     def remove_customer_from_offer(cls, customer, offer):
         offer.customer.remove(customer)
-    
 
     @classmethod
     def add_line_to_offer(cls, line, offer):
