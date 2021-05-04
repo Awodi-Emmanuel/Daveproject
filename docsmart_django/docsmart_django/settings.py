@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'payment_schedule',
     'sales',
     'notifications',
+    'plugins_base',
     'logs',
     'sale_lines',
     'customer',

@@ -1,9 +1,7 @@
 from django.db import models
 from enum import Enum
-from .manager import RolesManager
-from user.models import User
+from .manager import PluginManager
 from company.models import Company
-from plugins_base.manager import PluginManager
 
 # Create your models here.
 
