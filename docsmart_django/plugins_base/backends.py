@@ -16,7 +16,8 @@ class PluginsAthorization(authentication.BaseAuthentication):
         try:
             
             company = Company.objects.get(user__id= user.id)
-            plugin = Plugin.objects.get(company = company.id, app=plugin)
+            plugin = Plugin.objects.get(company = company.id, app=plugin, users__user_id = user.id)
+
 
             if plugin.status == STATUS.ACTIVE:
                 

@@ -2,6 +2,7 @@ from django.db import models
 from enum import Enum
 from .manager import PluginManager
 from company.models import Company
+from user.models import User
 
 # Create your models here.
 
@@ -31,6 +32,7 @@ class Plugin(models.Model):
         choices=[(tag, tag.value) for tag in STATUS], default = STATUS.TRIAL
     )
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True)
+    users = models.ManyToManyField(User, verbose_name="Permission", blank=True)
     last_payment_date = models.DateTimeField(null = True)
     next_expiry_date = models.DateTimeField(null = True)
     last_expiry_date = models.DateTimeField(null = True)
