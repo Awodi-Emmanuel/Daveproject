@@ -4,7 +4,7 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from .serializers import AddPluginSerializer
 # Create your views here.
-class CreateSalesOffer(GenericAPIView):
+class AddPlugin(GenericAPIView):
 
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = AddPluginSerializer
