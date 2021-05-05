@@ -24,11 +24,11 @@ class Plugin(models.Model):
 
 
     app = models.CharField(
-        max_length=5,
+        max_length=100,
         choices=[(tag, tag.value) for tag in APP_TYPES]
     )
     status = models.CharField(
-        max_length=5,
+        max_length=100,
         choices=[(tag, tag.value) for tag in STATUS], default = STATUS.TRIAL
     )
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True)

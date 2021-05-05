@@ -22,10 +22,11 @@ class AddPluginSerializer(serializers.ModelSerializer):
 
 
     app = serializers.CharField(
-        max_length=255, min_length=8)
-    status = serializers.CharField(max_length=255, min_length=4, required=False)
-    company = serializers.IntegerField(required=False, write_only=True)
+        max_length=255, min_length=2)
+    status = serializers.CharField(max_length=255, min_length=2)
+    company = serializers.IntegerField(required=True, write_only=True)
     users = serializers.IntegerField(required=False, write_only=True)
+    last_payment_date = serializers.DateTimeField(required=True)
 
 
     class Meta:

@@ -25,8 +25,8 @@ class PluginManager(models.Manager):
             status,
             company,
             last_payment_date,
-            next_expiry_date,
-            last_expiry_date
+            next_expiry_date=None,
+            last_expiry_date=None
     ):
 
         plugin = self.model(
