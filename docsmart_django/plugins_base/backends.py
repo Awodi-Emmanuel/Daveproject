@@ -1,29 +1,22 @@
-import jwt
-from rest_framework import authentication, exceptions
-from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.contrib.auth.backends import ModelBackend
 from company.models import Company
 from .models import Plugin, STATUS
+from rest_framework import permissions
+from roles.models import Role, Roles
 
+class PluginAccessPermission(permissions.BasePermission):
+    """
+    Global permission check for plugin access
+    """
+    message = 'Company does not have access to this plugin'
 
-class PluginsAthorization(authentication.BaseAuthentication):
+    def has_permission(self, request, view):
 
-    def authenticate(self, request, user=None, plugin=None):
+        app = request.data.get('app')
+        company = Company.objects.get(user__id = request.user.id)
+        plugin = Plugin.objects.get(company = company.id, app=app)
 
-        user = request.user
+        return plugin.status == STATUS.ACTIVE.value
 
-        try:
-            
-            company = Company.objects.get(user__id= user.id)
-            plugin = Plugin.objects.get(company = company.id, app=plugin, users__user_id = user.id)
-
-
-            if plugin.status == STATUS.ACTIVE:
                 
-                return plugin
-
-            raise exceptions.AuthenticationFailed(
-                'You do not have access to this plugin')
 
 

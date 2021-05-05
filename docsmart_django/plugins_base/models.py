@@ -42,6 +42,14 @@ class Plugin(models.Model):
 
     objects = PluginManager()
 
+    @classmethod
+    def grant_plugin_access(cls, user, plugin):
+        plugin.users.add(user)
+
+    @classmethod
+    def revoke_plugin_access(cls, user, plugin):
+        plugin.users.remove(user)
+
     class Meta:
         verbose_name = "Plugin"
         verbose_name_plural = "Plugins"
