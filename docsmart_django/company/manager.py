@@ -11,6 +11,7 @@ class CompanyManager(models.Manager):
             self,
             company_number,
             company_name,
+            company_size,
             company_email="",
             company_phone="",
             company_address="",
@@ -23,9 +24,12 @@ class CompanyManager(models.Manager):
             raise ValueError('Company must have a company number')
         if not company_name:
             raise ValueError('Company must have a name')
+        if not company_size:
+            raise ValueError('Company must have a size')
         company = self.model(
             company_number=company_number.lower(),
             company_name=company_name.lower(),
+            company_size=company_size,
             company_email=company_email.lower(),
             company_phone=company_phone,
             company_address=company_address,

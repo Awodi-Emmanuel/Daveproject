@@ -10,6 +10,7 @@ class Company(models.Model):
     company_country = models.CharField(verbose_name="Company Country", max_length=50, null=True)
     company_state = models.CharField(verbose_name="Company State", max_length=50, null=True)
     company_phone = models.CharField(verbose_name="Company Phone", max_length=20, null=True)
+    company_size = models.IntegerField(verbose_name="Company SIze")
     user = models.ManyToManyField("user.User", verbose_name="User", blank=True)
 
     REQUIRED_FIELDS = ['company_name', 'company_email', ]

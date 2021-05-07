@@ -81,5 +81,15 @@ class ChargebeeHandler:
 def start_trial(user):
 
     company = Company.objects.get(user__id=user.id)
-    Plugin.objects.add_plugin(app=APP_TYPES.GENERAL.value, 
-    status= STATUS.TRIAL.value, company= company, last_payment_date= str(datetime.today()), next_expiry_date= str(date.today() + timedelta(days=15)))
+    Plugin.objects.add_plugin(app=APP_TYPES.GENERAL.value,
+                              status=STATUS.TRIAL.value, company=company, last_payment_date=str(datetime.today()),
+                              next_expiry_date=str(date.today() + timedelta(days=15)))
+
+
+def end_trial(user):
+
+    company = Company.objects.get(user__id=user.id)
+    plugin = Plugin.objects.get(company=company, status=STATUS.TRIAL.value)
+    plugin.status = STATUS.EXPIRED
+    plugin.last_expiry_date = str(datetime.today())
+    plugin.save()
