@@ -2,7 +2,7 @@ import chargebee
 from datetime import datetime, timedelta, date
 from docsmart_django.settings import CHARGEBEE_API_KEY, CHARGEBEE_SITE
 from company.models import Company
-from plugins_base.models import Plugin, APP_TYPES, STATUS
+from plugins_base.models import Plugin, AppTypes, STATUS
 
 
 class ChargebeeHandler:
@@ -81,7 +81,7 @@ class ChargebeeHandler:
 def start_trial(user):
 
     company = Company.objects.get(user__id=user.id)
-    Plugin.objects.add_plugin(app=APP_TYPES.GENERAL.value,
+    Plugin.objects.add_plugin(app=AppTypes.GENERAL.value,
                               status=STATUS.TRIAL.value, company=company, last_payment_date=str(datetime.today()),
                               next_expiry_date=str(date.today() + timedelta(days=15)))
 

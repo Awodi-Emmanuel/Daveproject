@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Plugin',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('app', models.CharField(choices=[(plugins_base.models.APP_TYPES['SALES'], 'Sales'), (plugins_base.models.APP_TYPES['HR'], 'Human resource'), (plugins_base.models.APP_TYPES['LEGAL'], 'Legal'), (plugins_base.models.APP_TYPES['GENERAL'], 'General')], max_length=5)),
+                ('app', models.CharField(choices=[(plugins_base.models.AppTypes['SALES'], 'Sales'), (plugins_base.models.AppTypes['HR'], 'Human resource'), (plugins_base.models.AppTypes['LEGAL'], 'Legal'), (plugins_base.models.AppTypes['GENERAL'], 'General')], max_length=5)),
                 ('status', models.CharField(choices=[(plugins_base.models.STATUS['ACTIVE'], 'Active'), (plugins_base.models.STATUS['EXPIRED'], 'Expired'), (plugins_base.models.STATUS['TRIAL'], 'Trial'), (plugins_base.models.STATUS['EXTENSION'], 'Extension')], default=plugins_base.models.STATUS['TRIAL'], max_length=5)),
                 ('last_payment_date', models.DateTimeField(null=True)),
                 ('next_expiry_date', models.DateTimeField(null=True)),

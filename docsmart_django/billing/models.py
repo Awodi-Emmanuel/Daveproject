@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.db import models
-
+from django.template.defaultfilters import slugify
 # Create your models here.
 from company.models import Company
 from payments.models import Payment
@@ -10,7 +10,7 @@ from payments.models import Payment
 class BillingPlans(models.Model):
     plan_id = models.SlugField(blank=True)
     name = models.CharField(max_length=100)
-    description = models.CharField(max_length=500, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     price = models.FloatField()
     period = models.IntegerField(default=1)
     periods = (

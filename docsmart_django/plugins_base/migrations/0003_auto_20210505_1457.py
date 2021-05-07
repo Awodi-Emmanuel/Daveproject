@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='plugin',
             name='app',
-            field=models.CharField(choices=[(plugins_base.models.APP_TYPES['SALES'], 'Sales'), (plugins_base.models.APP_TYPES['HR'], 'Human resource'), (plugins_base.models.APP_TYPES['LEGAL'], 'Legal'), (plugins_base.models.APP_TYPES['GENERAL'], 'General')], max_length=100),
+            field=models.CharField(choices=[(plugins_base.models.AppTypes['SALES'], 'Sales'), (plugins_base.models.AppTypes['HR'], 'Human resource'), (plugins_base.models.AppTypes['LEGAL'], 'Legal'), (plugins_base.models.AppTypes['GENERAL'], 'General')], max_length=100),
         ),
         migrations.AlterField(
             model_name='plugin',

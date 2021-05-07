@@ -7,9 +7,9 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from sale_lines.serializers import FetchLinesSerializer
 from sale_lines.models import Lines
 
+
 # Create your views here.
 class CreateLines(GenericAPIView):
-
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CreateLinesSerializer
 
@@ -19,13 +19,11 @@ class CreateLines(GenericAPIView):
 
             lines_serializer = CreateLinesSerializer(data=request.data)
             if lines_serializer.is_valid():
-
                 related_company = Company.objects.get(user__id=request.user.id)
-                lines_serializer.save(related_user = request.user, related_company=related_company)
+                lines_serializer.save(related_user=request.user, related_company=related_company)
                 return Response(lines_serializer.data, status=status.HTTP_201_CREATED)
-            
-            return Response(lines_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+            return Response(lines_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         errors = []
         lines = []
@@ -36,7 +34,7 @@ class CreateLines(GenericAPIView):
             if lines_serializer.is_valid():
 
                 related_company = Company.objects.get(user__id=request.user.id)
-                lines_serializer.save(related_user = request.user, related_company=related_company)
+                lines_serializer.save(related_user=request.user, related_company=related_company)
                 lines.append(lines_serializer.data)
 
             else:
@@ -44,13 +42,12 @@ class CreateLines(GenericAPIView):
                 errors.append(lines_serializer.errors)
 
         if errors:
-
-            return Response(errors, status=status.HTTP_400_BAD_REQUEST)    
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(lines, status=status.HTTP_201_CREATED)
 
-class FetchLines(ListCreateAPIView):
 
+class FetchLines(ListCreateAPIView):
     serializer_class = FetchLinesSerializer
     permission_classes = (permissions.IsAuthenticated,)
 

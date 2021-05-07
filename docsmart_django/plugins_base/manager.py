@@ -24,18 +24,12 @@ class PluginManager(models.Manager):
             app,
             status,
             company,
-            last_payment_date,
-            next_expiry_date=None,
-            last_expiry_date=None
     ):
 
         plugin = self.model(
             app=app,
             status=status,
             company=company,
-            last_payment_date=last_payment_date,
-            next_expiry_date=next_expiry_date,
-            last_expiry_date=last_expiry_date
         )
 
         plugin.save(using=self._db)
