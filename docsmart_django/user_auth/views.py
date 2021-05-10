@@ -1,4 +1,7 @@
 from rest_framework.generics import GenericAPIView, UpdateAPIView
+
+from plugins_base.models import Plugin, AppTypes, STATUS
+from roles.models import Role, Roles
 from .serializers import UserSerializer, LoginSerializer, SignUpSerializer, ChangePasswordSerializer, \
     ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer
 from company.serializers import CompanySerializer
@@ -18,7 +21,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from .helpers.utils import Util
 from django.http import HttpResponsePermanentRedirect
-from billing.helpers import start_trial
+from billing.models import Subscription, BillingPlans
+from datetime import datetime, timedelta, date
 import os
 
 
@@ -51,11 +55,26 @@ class Register(GenericAPIView):
         company_serializer = CompanySerializer(data=request.data)
 
         if user_serializer.is_valid() and company_serializer.is_valid():
-
             user = user_serializer.save()
-            company_id = company_serializer.save()
-            Company.add_to_company(user=user, company=company_id)
-            start_trial(user)
+            company = company_serializer.save()
+            Company.add_to_company(user=user, company=company)
+            Role.objects.assign_role(role=Roles.OWNER.value, user=user, company=company)
+            sub = Subscription.objects.create(
+                company=company,
+                plan=BillingPlans.objects.get(plan_id="alpha-plan"),
+                billing_period=15,
+                billing_period_unit='day',
+                plan_amount=0,
+                plan_unit_price=0,
+                plan_quantity=1,
+                subscription_id='Trial',
+                next_billing_at=str(date.today() + timedelta(days=15)),
+                created_at=str(datetime.today()),
+                activated_at=str(datetime.today()),
+                status=True
+            )
+            plugin = Plugin.objects.add_plugin(app=AppTypes.GENERAL.value, subscription=sub, company=company)
+            Plugin.grant_plugin_access(user=user, plugin=plugin)
             # SendMail.send_confirmation_mail(url='http://127.0.0.1:8000/api/auth/complete-signup', user=user)
             response_data = {'user_object': user_serializer.data, 'company_object': company_serializer.data}
             return Response(response_data, status=status.HTTP_201_CREATED)

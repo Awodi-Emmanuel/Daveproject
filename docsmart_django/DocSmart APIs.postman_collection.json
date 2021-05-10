@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\n    \"email\": \"gbemilanre@gmail.com\"\n\n}",
+							"raw": "{\n    \"first_name\": \"David\",\n    \"last_name\": \"Lanre\",\n    \"phone\": \"2348120816502\",\n    \"email\": \"davelan@gmail.com\",\n    \"password\": \"Kaminari123_\",\n    \"company_name\": \"Aminario\",\n    \"company_number\": \"58613456981344\",\n    \"company_size\": 10\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,7 +23,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/auth/signup",
+							"raw": "http://127.0.0.1:8000/api/auth/register",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -35,7 +35,7 @@
 							"path": [
 								"api",
 								"auth",
-								"signup"
+								"register"
 							]
 						}
 					},
@@ -121,7 +121,7 @@
 									"type": "text"
 								},
 								{
-									"key": "Password",
+									"key": "password",
 									"value": "Kaminari123_",
 									"type": "text"
 								}
@@ -740,6 +740,49 @@
 								"add"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Billing",
+			"item": [
+				{
+					"name": "Get Hosted Page",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/billing/hosted-page",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"billing",
+								"hosted-page"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Plan",
+			"item": [
+				{
+					"name": "Fetch Plans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}

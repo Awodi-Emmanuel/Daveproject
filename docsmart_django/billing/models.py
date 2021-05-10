@@ -2,9 +2,12 @@ from datetime import datetime
 
 from django.db import models
 from django.template.defaultfilters import slugify
-# Create your models here.
 from company.models import Company
 from payments.models import Payment
+from .helpers import ChargebeeHandler
+
+
+# Create your models here.
 
 
 class BillingPlans(models.Model):
@@ -33,11 +36,16 @@ class BillingPlans(models.Model):
     def save(self, *args, **kwargs):
         if not self.pk:
             self.plan_id = slugify(self.name)
+        plan = {'plan_id': self.plan_id, 'name': self.name, 'description': self.description, 'price': self.price,
+                'period': self.period, 'period_unit': self.period_unit}
+
+        print(plan)
+        ChargebeeHandler().create_plan(plan)
         super(BillingPlans, self).save(*args, **kwargs)
 
 
 class Subscription(models.Model):
-    user = models.ForeignKey(Company, on_delete=models.DO_NOTHING, db_column='company', null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.DO_NOTHING, db_column='company', null=True, blank=True)
     plan = models.ForeignKey(BillingPlans, on_delete=models.DO_NOTHING, db_column='plan', null=True, blank=True)
     payment = models.OneToOneField(Payment, on_delete=models.DO_NOTHING, db_column='payment', null=True, blank=True)
     billing_period = models.IntegerField()
@@ -67,4 +75,3 @@ class Subscription(models.Model):
 
     def get_days_left(self):
         return (self.next_billing_at - datetime.now()).days
-

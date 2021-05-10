@@ -24,6 +24,14 @@ class Role(models.Model):
 
     objects = RolesManager()
 
+    # @classmethod
+    # def grant_role(cls, user, company):
+    #     company.user.add(user)
+    #
+    # @classmethod
+    # def revoke_role(cls, user, company):
+    #     company.user.remove(user)
+
     class Meta:
         verbose_name = "Role"
         verbose_name_plural = "Roles"

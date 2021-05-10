@@ -1,4 +1,4 @@
-from rest_framework import permissions, status
+from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from billing.helpers import ChargebeeHandler
@@ -12,14 +12,12 @@ class GetHostedPage(GenericAPIView):
 
     @staticmethod
     def post(request):
-
         result = ChargebeeHandler().get_checkout_page(request.data.get("id"), request.user)
         hosted_page = result._response['hosted_page']
         return Response(hosted_page, status=200)
 
 
 class FetchPlans(ListCreateAPIView):
+    queryset = BillingPlans.objects.all()
     serializer_class = FetchPlansSerializer
-
-    def get_queryset(self):
-        return BillingPlans.objects.all()
+    # permission_classes = [IsAdminUser]

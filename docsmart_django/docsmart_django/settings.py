@@ -90,8 +90,8 @@ ROOT_URLCONF = 'docsmart_django.urls'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CHARGEBEE_API_KEY = "test_cdEXbUsiRgFdyMbmj4I5DxTgox3H2BnDe"
-CHARGEBEE_SITE = "edwardsegun-test"
+CHARGEBEE_API_KEY = "test_R1iip3jNd49aEAs3UHGbcdpslKY6TwICq"
+CHARGEBEE_SITE = "transferwiseconnector-test"
 
 TEMPLATES = [
     {

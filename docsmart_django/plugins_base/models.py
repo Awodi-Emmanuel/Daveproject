@@ -8,8 +8,6 @@ from billing.models import Subscription
 
 
 # Create your models here.
-
-
 class AppTypes(Enum):
     SALES = "Sales"
     HR = "Human resource"
