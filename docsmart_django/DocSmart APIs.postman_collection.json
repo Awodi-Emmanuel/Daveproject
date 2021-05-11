@@ -751,8 +751,28 @@
 				{
 					"name": "Get Hosted Page",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxhbnJlQGdtYWlsLmNvbSJ9.bk6UAItDwJIFqsWT6MCaOrocKrNKbMVs9b6a4Xwgqj8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "mega-plan",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "http://127.0.0.1:8000/api/billing/hosted-page",
 							"protocol": "http",
@@ -782,7 +802,85 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/plans/fetch",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"plans",
+								"fetch"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BankId",
+			"item": [
+				{
+					"name": "Sign",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bankid/sign",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bankid",
+								"sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bankid/sign",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bankid",
+								"sign"
+							]
+						}
 					},
 					"response": []
 				}
