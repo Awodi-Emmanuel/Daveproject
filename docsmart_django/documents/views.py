@@ -138,3 +138,29 @@ class CreateSingleUserDirectory(GenericAPIView):
 
             return Response({"message": "We're unable to create the folder"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class SignDocument(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    @staticmethod
+    def post(request):
+
+        try:
+
+            directory_name = request.data.get("folder_name")
+            current_directory_path = request.data.get("current_path")
+
+            if directory_name is None:
+                return Response({'message': 'folder_name', 'status': 'failed'},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            new_directory = Directory.create_single_directory(str(request.user.id),
+                                                              current_directory_path, directory_name)
+
+            return Response(new_directory, status=status.HTTP_200_OK)
+
+        except Exception:
+
+            return Response({"message": "We're unable to create the folder"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -4,7 +4,7 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from .serializers import AddPluginSerializer
 from company.models import Company
-from .backends import PluginAccessPermission
+from .backends import CompanyPluginAccessPermission
 from roles.backends import OwnerPermission
 from plugins_base.models import Plugin, AppTypes
 from user.models import User
@@ -29,7 +29,7 @@ class AddPlugin(GenericAPIView):
 
 
 class AddUserToPlugin(GenericAPIView):
-    permission_classes = (permissions.IsAuthenticated, OwnerPermission, PluginAccessPermission)
+    permission_classes = (permissions.IsAuthenticated, OwnerPermission, CompanyPluginAccessPermission)
 
     @staticmethod
     def post(request):

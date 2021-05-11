@@ -8,8 +8,6 @@ from .helpers import ChargebeeHandler
 
 
 # Create your models here.
-
-
 class BillingPlans(models.Model):
     plan_id = models.SlugField(blank=True)
     name = models.CharField(max_length=100)

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'logs',
     'sale_lines',
     'customer',
+    'bankid',
     'rest_framework_swagger',
     'rest_framework_simplejwt',
     'drf_yasg',
@@ -92,6 +93,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CHARGEBEE_API_KEY = "test_R1iip3jNd49aEAs3UHGbcdpslKY6TwICq"
 CHARGEBEE_SITE = "transferwiseconnector-test"
+
+BANKID_BASE = "https://api.banksignering.se/api/"
+BANKID_APIUSER = "connectivo"
+BANKID_PASSWORD = "3af119a8-8e61-4255-a014-bcc2e55d2e05"
+BANKID_COMPANYAPIGUID = "b42fb0cb-e5b2-4f8a-a10f-5a06450c336c"
 
 TEMPLATES = [
     {
