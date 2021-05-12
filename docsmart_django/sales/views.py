@@ -77,7 +77,6 @@ class UpdateSalesOffer(UpdateAPIView):
     @staticmethod
     def put(request):
         offer = Sales.objects.get(id=request.GET.get('id'))
-        print(offer)
         offer_serializer = OfferSerializer(offer, data=request.data)
         if offer_serializer.is_valid():
             offer_serializer.save()
