@@ -1,29 +1,34 @@
 from rest_framework import permissions
 from rest_framework.response import Response
-from rest_framework.generics import GenericAPIView, ListCreateAPIView
+from rest_framework.generics import GenericAPIView
+from customer.models import Customer
 from bankid.helpers import BankIdHandler
 from bankid.models import SignedDocuments
 from documents.models import Document
 
 
 # Create your views here.
+from sales.models import Sales
+
 
 class SignDocument(GenericAPIView):
 
     @staticmethod
-    def post(request):
-        if request.data.get('document'):
+    def get(request):
+        if request.GET.get('offer') and request.GET.get('customer'):
 
-            try:
-                document = Document.objects.get(id=request.data.get('document'))
-                ip = request.META.get("REMOTE_ADDR")
-                result = BankIdHandler.sign_document(document, ip)
+            # try:
+            offer = Sales.objects.get(id=request.GET.get('offer'))
+            ip = request.META.get("REMOTE_ADDR")
+            customer = Customer.objects.get(id=request.GET.get('customer'))
+            if offer.customer.get(id=customer.id):
+                # print(offer.document)
+                # return
+                result = BankIdHandler.sign_document(offer, ip, customer)
                 print(result)
                 return Response(result, status=200)
-
-            except Exception:
-
-                return Response({'message': 'Unable to sign document', 'status': 'failed'}, status=500)
+            # except Exception:
+            #     return Response({'message': 'Unable to sign document', 'status': 'failed'}, status=500)
 
         return Response({'message': 'document cannot be missing', 'status': 'failed'}, status=500)
 
@@ -43,4 +48,4 @@ class CollectStatus(GenericAPIView):
             except Exception:
                 return Response({'message': 'Unable to get document status', 'status': 'failed'}, status=500)
 
-        return Response({'message': 'signid cannot be missing', 'status': 'failed'}, status=500)
+        return Response({'message': 'signid cannot be missing', 'status': 'fail0ed'}, status=500)

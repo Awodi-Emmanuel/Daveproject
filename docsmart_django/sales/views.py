@@ -7,6 +7,7 @@ from logs.models import Logs
 from sales.serializers import CreatePaymentSchedule, CreateSalesOfferSerializer, RetrieveSalesOfferSerializer
 from sales.models import Sales
 from company.models import Company
+from django.contrib.contenttypes.models import ContentType
 
 
 class CreateSalesOffer(GenericAPIView):
@@ -34,7 +35,7 @@ class CreateSalesOffer(GenericAPIView):
                 for line in request.data.get('lines'):
                     Sales.add_line_to_offer(line=line, offer=offer)
 
-            Logs.objects.create_log(performed_by=request.user.id, affected_user=request.user.id,
+            Logs.objects.create_log(performed_by=request.user, affected_user=request.user,
                                     loggable=offer, action='Create Sales Offer')
             response_data = {'sale_object': sale_serializer.data}
             return Response(response_data, status=status.HTTP_201_CREATED)
@@ -55,10 +56,11 @@ class CreateSalesOffer(GenericAPIView):
                 for line in request.data.get('lines'):
                     Sales.add_line_to_offer(line=line, offer=offer)
 
-            Logs.objects.create_log(performed_by=request.user.id, affected_user=request.user.id,
-                                    loggable=offer, action='Create Sales Offer')
+            Logs.objects.create_log(performed_by=request.user, affected_user=request.user, object_id=offer.id,
+                                    loggable=ContentType.objects.get_for_model(offer), action='Create Sales Offer')
             response_data = {'sale_object': sale_serializer.data, 'schedule_object': payment_serializer.data}
             return Response(response_data, status=status.HTTP_201_CREATED)
+
         else:
 
             sale_serializer.is_valid()

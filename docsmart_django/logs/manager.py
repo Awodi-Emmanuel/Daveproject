@@ -21,12 +21,14 @@ class LogsManager(models.Manager):
             self,
             performed_by,
             affected_user,
+            object_id,
             loggable,
             action,
     ):
         log = self.model(
             performed_by=performed_by,
             affected_user=affected_user,
+            object_id=object_id,
             loggable=loggable,
             action=action,
         )
