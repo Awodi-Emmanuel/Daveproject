@@ -1,10 +1,11 @@
 # Create your views here.
 from rest_framework import permissions, status
-from rest_framework.generics import GenericAPIView, ListCreateAPIView
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, UpdateAPIView
 from rest_framework.response import Response
 from customer.serializer import CreateCustomerSerializer
 from logs.models import Logs
-from sales.serializers import CreatePaymentSchedule, CreateSalesOfferSerializer, RetrieveSalesOfferSerializer
+from sales.serializers import CreatePaymentSchedule, CreateSalesOfferSerializer, RetrieveSalesOfferSerializer, \
+    UpdateOfferSerializers
 from sales.models import Sales
 from company.models import Company
 from django.contrib.contenttypes.models import ContentType
@@ -67,6 +68,20 @@ class CreateSalesOffer(GenericAPIView):
             payment_serializer.is_valid()
             error_data = {'sale_error': sale_serializer.errors, 'schedule_error': payment_serializer.errors}
             return Response(error_data, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateSalesOffer(UpdateAPIView):
+    serializer_class = UpdateOfferSerializers
+    permission_classes = (permissions.IsAuthenticated,)
+
+    @staticmethod
+    def put(request):
+        offer = Sales.objects.get(id=request.GET.get('id'))
+        offer_serializer = UpdateOfferSerializers(offer, data=request.data)
+        if offer_serializer.is_valid(raise_exception=True):
+            offer_serializer.save()
+            Response(offer_serializer.data, status=200)
+        Response(offer_serializer.errors, status=200)
 
 
 class RetrieveSalesOffer(ListCreateAPIView):

@@ -3,31 +3,6 @@ from rest_framework import serializers
 from payment_schedule.models import PaymentSchedule
 from sales.models import Sales
 
-"""
-title = models.CharField(verbose_name="title", max_length=500)
-    # template = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    status = models.CharField(
-        max_length=5,
-        choices=[(tag, tag.value) for tag in Status], default=Status.IN_PROGRESS
-    )
-    total = models.DecimalField(default=0.00, max_digits=9, decimal_places=3)
-    discount = models.DecimalField(default=0.00, max_digits=9, decimal_places=3)
-    vat = models.ForeignKey(VAT, on_delete=models.CASCADE, blank=True)
-    signature_type = models.CharField(
-        max_length=5,
-        choices=[(tag, tag.value) for tag in SignatureType]
-    )
-    currency = models.CharField(
-        max_length=5,
-        choices=[(tag, tag.value) for tag in Currency]
-    )
-    customer = models.ManyToManyField(Customer, verbose_name="Customer", blank=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True)
-    payment_schedule = models.ForeignKey(PaymentSchedule, on_delete=models.CASCADE, blank=True)
-    document = models.ForeignKey(Document, on_delete=models.CASCADE, blank=True)
-"""
-
 
 class CreateSalesOfferSerializer(serializers.ModelSerializer):
     title = serializers.CharField(
@@ -51,6 +26,13 @@ class CreateSalesOfferSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
 
         return Sales.objects.create_sales_offer(**validated_data)
+
+
+class UpdateOfferSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Sales
+        depth = 1
+        fields = '__all__'
 
 
 class CreatePaymentSchedule(serializers.ModelSerializer):
