@@ -4,7 +4,7 @@ from payment_schedule.models import PaymentSchedule
 from sales.models import Sales
 
 
-class CreateSalesOfferSerializer(serializers.ModelSerializer):
+class OfferSerializer(serializers.ModelSerializer):
     title = serializers.CharField(
         max_length=255, min_length=8)
     status = serializers.CharField(max_length=255, min_length=4, required=False)
@@ -23,16 +23,29 @@ class CreateSalesOfferSerializer(serializers.ModelSerializer):
         depth = 1
         fields = '__all__'
 
-    def create(self, validated_data):
+    def get_fields(self, *args, **kwargs):
+        fields = super(OfferSerializer, self).get_fields(*args, **kwargs)
+        request = self.context.get('request', None)
+        if request and getattr(request, 'method', None) == "PUT":
+            fields['title'].required = False
+        return fields
 
+    def create(self, validated_data):
         return Sales.objects.create_sales_offer(**validated_data)
 
-
-class UpdateOfferSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Sales
-        depth = 1
-        fields = '__all__'
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.status = validated_data.get('status', instance.status)
+        instance.total = validated_data.get('total', instance.total)
+        instance.discount = validated_data.get('discount', instance.discount)
+        instance.signature_type = validated_data.get('signature_type', instance.signature_type)
+        instance.currency = validated_data.get('currency', instance.currency)
+        instance.owner = validated_data.get('owner', instance.owner)
+        instance.related_company = validated_data.get('related_company', instance.related_company)
+        instance.payment_schedule = validated_data.get('payment_schedule', instance.payment_schedule)
+        instance.document = validated_data.get('document', instance.document)
+        instance.save()
+        return instance
 
 
 class CreatePaymentSchedule(serializers.ModelSerializer):

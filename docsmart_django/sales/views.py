@@ -4,8 +4,8 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView, UpdateAPI
 from rest_framework.response import Response
 from customer.serializer import CreateCustomerSerializer
 from logs.models import Logs
-from sales.serializers import CreatePaymentSchedule, CreateSalesOfferSerializer, RetrieveSalesOfferSerializer, \
-    UpdateOfferSerializers
+from sales.serializers import CreatePaymentSchedule, RetrieveSalesOfferSerializer, \
+    OfferSerializer
 from sales.models import Sales
 from company.models import Company
 from django.contrib.contenttypes.models import ContentType
@@ -13,12 +13,12 @@ from django.contrib.contenttypes.models import ContentType
 
 class CreateSalesOffer(GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = CreateSalesOfferSerializer, CreatePaymentSchedule, CreateCustomerSerializer
+    serializer_class = OfferSerializer, CreatePaymentSchedule, CreateCustomerSerializer
 
     @staticmethod
     def post(request):
 
-        sale_serializer = CreateSalesOfferSerializer(data=request.data)
+        sale_serializer = OfferSerializer(data=request.data)
         payment_serializer = CreatePaymentSchedule(data=request.data)
 
         if not payment_serializer.is_valid() and sale_serializer.is_valid():
@@ -71,17 +71,18 @@ class CreateSalesOffer(GenericAPIView):
 
 
 class UpdateSalesOffer(UpdateAPIView):
-    serializer_class = UpdateOfferSerializers
+    serializer_class = OfferSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     @staticmethod
     def put(request):
         offer = Sales.objects.get(id=request.GET.get('id'))
-        offer_serializer = UpdateOfferSerializers(offer, data=request.data)
-        if offer_serializer.is_valid(raise_exception=True):
+        print(offer)
+        offer_serializer = OfferSerializer(offer, data=request.data)
+        if offer_serializer.is_valid():
             offer_serializer.save()
-            Response(offer_serializer.data, status=200)
-        Response(offer_serializer.errors, status=200)
+            return Response(offer_serializer.data, status=200)
+        return Response(offer_serializer.errors, status=500)
 
 
 class RetrieveSalesOffer(ListCreateAPIView):
