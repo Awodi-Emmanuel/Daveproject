@@ -156,7 +156,101 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "lanre@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Kaminari123_",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/auth/login",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 11 May 2021 16:50:33 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "205"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user\": {\n        \"first_name\": \"David\",\n        \"last_name\": \"Lanre\",\n        \"email\": \"lanre@gmail.com\"\n    },\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxhbnJlQGdtYWlsLmNvbSJ9.bk6UAItDwJIFqsWT6MCaOrocKrNKbMVs9b6a4Xwgqj8\"\n}"
+						}
+					]
 				}
 			]
 		},
@@ -514,7 +608,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/sales/createa",
+							"raw": "http://127.0.0.1:8000/api/sales/create",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -526,18 +620,603 @@
 							"path": [
 								"api",
 								"sales",
-								"createa"
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Sales Offer",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Test offer\",\n    \"total\": 2300.0,\n    \"owner\": 1,\n    \"item\": \"First Payment\",\n    \"price\": 2300.0,\n    \"start\": \"2012-09-04 06:00:00.000000\",\n    \"finish\": \"2012-09-04 06:00:00.000000\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/sales/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sales",
+										"create"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 11 May 2021 16:50:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"Authentication credentials were not provided.\"\n}"
+						},
+						{
+							"name": "Create Sales Offer",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Test offer\",\n    \"total\": 2300.0,\n    \"owner\": 1,\n    \"item\": \"First Payment\",\n    \"price\": 2300.0,\n    \"start\": \"2012-09-04 06:00:00.000000\",\n    \"finish\": \"2012-09-04 06:00:00.000000\",\n    \"customers\": [\n        1\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/sales/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sales",
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 11 May 2021 17:56:37 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "650"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"sale_object\": {\n        \"id\": 9,\n        \"title\": \"Test offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"document\": null,\n        \"vat\": null,\n        \"customer\": [\n            {\n                \"id\": 1,\n                \"first_name\": \"Lois\",\n                \"last_name\": \"\",\n                \"email\": \"Lois@gmail.com\",\n                \"company_email\": \"lane@gmail.com\",\n                \"reference\": null,\n                \"company_name\": \"Lois Co\",\n                \"company_number\": \"134354354\",\n                \"company_address\": \"London, UK\",\n                \"company_zipcode\": \"1200021\",\n                \"company_city\": \"Brimwitch\",\n                \"company_country\": \"United Kindom\",\n                \"related_user\": null,\n                \"related_company\": 2\n            }\n        ],\n        \"lines\": []\n    },\n    \"schedule_object\": {\n        \"item\": \"First Payment\",\n        \"price\": \"2300.0\",\n        \"start\": \"2012-09-04T06:00:00Z\",\n        \"finish\": \"2012-09-04T06:00:00Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch Sales Offers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxhbnJlQGdtYWlsLmNvbSJ9.bk6UAItDwJIFqsWT6MCaOrocKrNKbMVs9b6a4Xwgqj8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/sales/fetch",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sales",
+								"fetch"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Fetch Sales Offers",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/sales/fetch",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sales",
+										"fetch"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 12 May 2021 13:21:57 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "9260"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"title\": \"Updated offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"vat\": null,\n        \"owner\": {\n            \"id\": 3,\n            \"last_login\": null,\n            \"email\": \"lanre@gmail.com\",\n            \"username\": null,\n            \"first_name\": \"David\",\n            \"last_name\": \"Lanre\",\n            \"phone\": \"\",\n            \"password\": \"pbkdf2_sha256$216000$taKDNrr9tBjp$i4MManhe/he9twMpV7LFGEDUZ5g8GUB5Lqzm2OxbSCo=\",\n            \"date_joined\": \"2021-05-10T01:15:56.721353Z\",\n            \"created_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"updated_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"is_active\": true,\n            \"is_admin\": false,\n            \"is_staff\": false,\n            \"groups\": [],\n            \"user_permissions\": []\n        },\n        \"related_company\": {\n            \"id\": 2,\n            \"company_name\": \"kaminario\",\n            \"company_number\": \"584684616981\",\n            \"company_email\": \"\",\n            \"company_address\": \"\",\n            \"company_country\": \"\",\n            \"company_state\": \"\",\n            \"company_phone\": \"\",\n            \"company_size\": 10,\n            \"user\": [\n                3\n            ]\n        },\n        \"payment_schedule\": {\n            \"id\": 1,\n            \"item\": \"First Payment\",\n            \"price\": \"2300.000\",\n            \"start\": \"2012-09-04T06:00:00Z\",\n            \"finish\": \"2012-09-04T06:00:00Z\"\n        },\n        \"document\": null,\n        \"customer\": [],\n        \"lines\": []\n    },\n    {\n        \"id\": 2,\n        \"title\": \"Test offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"vat\": null,\n        \"owner\": {\n            \"id\": 3,\n            \"last_login\": null,\n            \"email\": \"lanre@gmail.com\",\n            \"username\": null,\n            \"first_name\": \"David\",\n            \"last_name\": \"Lanre\",\n            \"phone\": \"\",\n            \"password\": \"pbkdf2_sha256$216000$taKDNrr9tBjp$i4MManhe/he9twMpV7LFGEDUZ5g8GUB5Lqzm2OxbSCo=\",\n            \"date_joined\": \"2021-05-10T01:15:56.721353Z\",\n            \"created_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"updated_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"is_active\": true,\n            \"is_admin\": false,\n            \"is_staff\": false,\n            \"groups\": [],\n            \"user_permissions\": []\n        },\n        \"related_company\": {\n            \"id\": 2,\n            \"company_name\": \"kaminario\",\n            \"company_number\": \"584684616981\",\n            \"company_email\": \"\",\n            \"company_address\": \"\",\n            \"company_country\": \"\",\n            \"company_state\": \"\",\n            \"company_phone\": \"\",\n            \"company_size\": 10,\n            \"user\": [\n                3\n            ]\n        },\n        \"payment_schedule\": {\n            \"id\": 2,\n            \"item\": \"First Payment\",\n            \"price\": \"2300.000\",\n            \"start\": \"2012-09-04T06:00:00Z\",\n            \"finish\": \"2012-09-04T06:00:00Z\"\n        },\n        \"document\": null,\n        \"customer\": [],\n        \"lines\": []\n    },\n    {\n        \"id\": 3,\n        \"title\": \"Test offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"vat\": null,\n        \"owner\": {\n            \"id\": 3,\n            \"last_login\": null,\n            \"email\": \"lanre@gmail.com\",\n            \"username\": null,\n            \"first_name\": \"David\",\n            \"last_name\": \"Lanre\",\n            \"phone\": \"\",\n            \"password\": \"pbkdf2_sha256$216000$taKDNrr9tBjp$i4MManhe/he9twMpV7LFGEDUZ5g8GUB5Lqzm2OxbSCo=\",\n            \"date_joined\": \"2021-05-10T01:15:56.721353Z\",\n            \"created_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"updated_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"is_active\": true,\n            \"is_admin\": false,\n            \"is_staff\": false,\n            \"groups\": [],\n            \"user_permissions\": []\n        },\n        \"related_company\": {\n            \"id\": 2,\n            \"company_name\": \"kaminario\",\n            \"company_number\": \"584684616981\",\n            \"company_email\": \"\",\n            \"company_address\": \"\",\n            \"company_country\": \"\",\n            \"company_state\": \"\",\n            \"company_phone\": \"\",\n            \"company_size\": 10,\n            \"user\": [\n                3\n            ]\n        },\n        \"payment_schedule\": {\n            \"id\": 3,\n            \"item\": \"First Payment\",\n            \"price\": \"2300.000\",\n            \"start\": \"2012-09-04T06:00:00Z\",\n            \"finish\": \"2012-09-04T06:00:00Z\"\n        },\n        \"document\": null,\n        \"customer\": [],\n        \"lines\": []\n    },\n    {\n        \"id\": 4,\n        \"title\": \"Test offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"vat\": null,\n        \"owner\": {\n            \"id\": 3,\n            \"last_login\": null,\n            \"email\": \"lanre@gmail.com\",\n            \"username\": null,\n            \"first_name\": \"David\",\n            \"last_name\": \"Lanre\",\n            \"phone\": \"\",\n            \"password\": \"pbkdf2_sha256$216000$taKDNrr9tBjp$i4MManhe/he9twMpV7LFGEDUZ5g8GUB5Lqzm2OxbSCo=\",\n            \"date_joined\": \"2021-05-10T01:15:56.721353Z\",\n            \"created_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"updated_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"is_active\": true,\n            \"is_admin\": false,\n            \"is_staff\": false,\n            \"groups\": [],\n            \"user_permissions\": []\n        },\n        \"related_company\": {\n            \"id\": 2,\n            \"company_name\": \"kaminario\",\n            \"company_number\": \"584684616981\",\n            \"company_email\": \"\",\n            \"company_address\": \"\",\n            \"company_country\": \"\",\n            \"company_state\": \"\",\n            \"company_phone\": \"\",\n            \"company_size\": 10,\n            \"user\": [\n                3\n            ]\n        },\n        \"payment_schedule\": {\n            \"id\": 4,\n            \"item\": \"First Payment\",\n            \"price\": \"2300.000\",\n            \"start\": \"2012-09-04T06:00:00Z\",\n            \"finish\": \"2012-09-04T06:00:00Z\"\n        },\n        \"document\": null,\n        \"customer\": [],\n        \"lines\": []\n    },\n    {\n        \"id\": 5,\n        \"title\": \"Test offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"vat\": null,\n        \"owner\": {\n            \"id\": 3,\n            \"last_login\": null,\n            \"email\": \"lanre@gmail.com\",\n            \"username\": null,\n            \"first_name\": \"David\",\n            \"last_name\": \"Lanre\",\n            \"phone\": \"\",\n            \"password\": \"pbkdf2_sha256$216000$taKDNrr9tBjp$i4MManhe/he9twMpV7LFGEDUZ5g8GUB5Lqzm2OxbSCo=\",\n            \"date_joined\": \"2021-05-10T01:15:56.721353Z\",\n            \"created_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"updated_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"is_active\": true,\n            \"is_admin\": false,\n            \"is_staff\": false,\n            \"groups\": [],\n            \"user_permissions\": []\n        },\n        \"related_company\": {\n            \"id\": 2,\n            \"company_name\": \"kaminario\",\n            \"company_number\": \"584684616981\",\n            \"company_email\": \"\",\n            \"company_address\": \"\",\n            \"company_country\": \"\",\n            \"company_state\": \"\",\n            \"company_phone\": \"\",\n            \"company_size\": 10,\n            \"user\": [\n                3\n            ]\n        },\n        \"payment_schedule\": {\n            \"id\": 5,\n            \"item\": \"First Payment\",\n            \"price\": \"2300.000\",\n            \"start\": \"2012-09-04T06:00:00Z\",\n            \"finish\": \"2012-09-04T06:00:00Z\"\n        },\n        \"document\": null,\n        \"customer\": [],\n        \"lines\": []\n    },\n    {\n        \"id\": 6,\n        \"title\": \"Test offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"vat\": null,\n        \"owner\": {\n            \"id\": 3,\n            \"last_login\": null,\n            \"email\": \"lanre@gmail.com\",\n            \"username\": null,\n            \"first_name\": \"David\",\n            \"last_name\": \"Lanre\",\n            \"phone\": \"\",\n            \"password\": \"pbkdf2_sha256$216000$taKDNrr9tBjp$i4MManhe/he9twMpV7LFGEDUZ5g8GUB5Lqzm2OxbSCo=\",\n            \"date_joined\": \"2021-05-10T01:15:56.721353Z\",\n            \"created_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"updated_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"is_active\": true,\n            \"is_admin\": false,\n            \"is_staff\": false,\n            \"groups\": [],\n            \"user_permissions\": []\n        },\n        \"related_company\": {\n            \"id\": 2,\n            \"company_name\": \"kaminario\",\n            \"company_number\": \"584684616981\",\n            \"company_email\": \"\",\n            \"company_address\": \"\",\n            \"company_country\": \"\",\n            \"company_state\": \"\",\n            \"company_phone\": \"\",\n            \"company_size\": 10,\n            \"user\": [\n                3\n            ]\n        },\n        \"payment_schedule\": {\n            \"id\": 6,\n            \"item\": \"First Payment\",\n            \"price\": \"2300.000\",\n            \"start\": \"2012-09-04T06:00:00Z\",\n            \"finish\": \"2012-09-04T06:00:00Z\"\n        },\n        \"document\": null,\n        \"customer\": [],\n        \"lines\": []\n    },\n    {\n        \"id\": 7,\n        \"title\": \"Test offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"vat\": null,\n        \"owner\": {\n            \"id\": 3,\n            \"last_login\": null,\n            \"email\": \"lanre@gmail.com\",\n            \"username\": null,\n            \"first_name\": \"David\",\n            \"last_name\": \"Lanre\",\n            \"phone\": \"\",\n            \"password\": \"pbkdf2_sha256$216000$taKDNrr9tBjp$i4MManhe/he9twMpV7LFGEDUZ5g8GUB5Lqzm2OxbSCo=\",\n            \"date_joined\": \"2021-05-10T01:15:56.721353Z\",\n            \"created_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"updated_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"is_active\": true,\n            \"is_admin\": false,\n            \"is_staff\": false,\n            \"groups\": [],\n            \"user_permissions\": []\n        },\n        \"related_company\": {\n            \"id\": 2,\n            \"company_name\": \"kaminario\",\n            \"company_number\": \"584684616981\",\n            \"company_email\": \"\",\n            \"company_address\": \"\",\n            \"company_country\": \"\",\n            \"company_state\": \"\",\n            \"company_phone\": \"\",\n            \"company_size\": 10,\n            \"user\": [\n                3\n            ]\n        },\n        \"payment_schedule\": {\n            \"id\": 7,\n            \"item\": \"First Payment\",\n            \"price\": \"2300.000\",\n            \"start\": \"2012-09-04T06:00:00Z\",\n            \"finish\": \"2012-09-04T06:00:00Z\"\n        },\n        \"document\": null,\n        \"customer\": [],\n        \"lines\": []\n    },\n    {\n        \"id\": 8,\n        \"title\": \"Test offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"vat\": null,\n        \"owner\": {\n            \"id\": 3,\n            \"last_login\": null,\n            \"email\": \"lanre@gmail.com\",\n            \"username\": null,\n            \"first_name\": \"David\",\n            \"last_name\": \"Lanre\",\n            \"phone\": \"\",\n            \"password\": \"pbkdf2_sha256$216000$taKDNrr9tBjp$i4MManhe/he9twMpV7LFGEDUZ5g8GUB5Lqzm2OxbSCo=\",\n            \"date_joined\": \"2021-05-10T01:15:56.721353Z\",\n            \"created_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"updated_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"is_active\": true,\n            \"is_admin\": false,\n            \"is_staff\": false,\n            \"groups\": [],\n            \"user_permissions\": []\n        },\n        \"related_company\": {\n            \"id\": 2,\n            \"company_name\": \"kaminario\",\n            \"company_number\": \"584684616981\",\n            \"company_email\": \"\",\n            \"company_address\": \"\",\n            \"company_country\": \"\",\n            \"company_state\": \"\",\n            \"company_phone\": \"\",\n            \"company_size\": 10,\n            \"user\": [\n                3\n            ]\n        },\n        \"payment_schedule\": {\n            \"id\": 8,\n            \"item\": \"First Payment\",\n            \"price\": \"2300.000\",\n            \"start\": \"2012-09-04T06:00:00Z\",\n            \"finish\": \"2012-09-04T06:00:00Z\"\n        },\n        \"document\": null,\n        \"customer\": [],\n        \"lines\": []\n    },\n    {\n        \"id\": 9,\n        \"title\": \"Test offer\",\n        \"status\": \"Draft\",\n        \"total\": \"2300.000\",\n        \"discount\": null,\n        \"signature_type\": \"Bank ID\",\n        \"currency\": \"Krona\",\n        \"vat\": null,\n        \"owner\": {\n            \"id\": 3,\n            \"last_login\": null,\n            \"email\": \"lanre@gmail.com\",\n            \"username\": null,\n            \"first_name\": \"David\",\n            \"last_name\": \"Lanre\",\n            \"phone\": \"\",\n            \"password\": \"pbkdf2_sha256$216000$taKDNrr9tBjp$i4MManhe/he9twMpV7LFGEDUZ5g8GUB5Lqzm2OxbSCo=\",\n            \"date_joined\": \"2021-05-10T01:15:56.721353Z\",\n            \"created_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"updated_at\": \"2021-05-10T01:15:56.721353Z\",\n            \"is_active\": true,\n            \"is_admin\": false,\n            \"is_staff\": false,\n            \"groups\": [],\n            \"user_permissions\": []\n        },\n        \"related_company\": {\n            \"id\": 2,\n            \"company_name\": \"kaminario\",\n            \"company_number\": \"584684616981\",\n            \"company_email\": \"\",\n            \"company_address\": \"\",\n            \"company_country\": \"\",\n            \"company_state\": \"\",\n            \"company_phone\": \"\",\n            \"company_size\": 10,\n            \"user\": [\n                3\n            ]\n        },\n        \"payment_schedule\": {\n            \"id\": 9,\n            \"item\": \"First Payment\",\n            \"price\": \"2300.000\",\n            \"start\": \"2012-09-04T06:00:00Z\",\n            \"finish\": \"2012-09-04T06:00:00Z\"\n        },\n        \"document\": {\n            \"id\": 1,\n            \"name\": \"initial document\",\n            \"path\": \"/home/user/path\",\n            \"date_last_edited\": \"2021-05-11T05:01:50.938470Z\",\n            \"created_at\": \"2021-05-11T05:01:50.938470Z\",\n            \"updated_at\": \"2021-05-11T05:01:50.938470Z\",\n            \"company_id\": 1,\n            \"created_by\": 1,\n            \"last_edited_by\": 1,\n            \"permissions\": [\n                1\n            ]\n        },\n        \"customer\": [\n            {\n                \"id\": 1,\n                \"first_name\": \"Lois\",\n                \"last_name\": \"\",\n                \"email\": \"Lois@gmail.com\",\n                \"company_email\": \"lane@gmail.com\",\n                \"reference\": null,\n                \"company_name\": \"Lois Co\",\n                \"company_number\": \"134354354\",\n                \"company_address\": \"London, UK\",\n                \"company_zipcode\": \"1200021\",\n                \"company_city\": \"Brimwitch\",\n                \"company_country\": \"United Kindom\",\n                \"related_user\": null,\n                \"related_company\": 2\n            }\n        ],\n        \"lines\": []\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Update Sales Offer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxhbnJlQGdtYWlsLmNvbSJ9.bk6UAItDwJIFqsWT6MCaOrocKrNKbMVs9b6a4Xwgqj8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"title\": \"Updated offer\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/sales/update?id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sales",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Sales Offer",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"title\": \"Updated offer\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/sales/update?id=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sales",
+										"update"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 12 May 2021 13:05:01 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "PUT, PATCH, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "182"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"title\": \"Updated offer\",\n    \"status\": \"Draft\",\n    \"total\": \"2300.000\",\n    \"discount\": null,\n    \"signature_type\": \"Bank ID\",\n    \"currency\": \"Krona\",\n    \"document\": null,\n    \"vat\": null,\n    \"customer\": [],\n    \"lines\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch Sales Offer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRhdmVsYW5AZ21haWwuY29tIn0.EMkgaSDZyYgUcXEWLWnWdqDRFcH6cLWqI5ztMtr1c4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/sales/fetch_offer?offer=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sales",
+								"fetch_offer"
+							],
+							"query": [
+								{
+									"key": "offer",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Fetch Sales Offer",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/sales/fetch_offer?offer=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"sales",
+										"fetch_offer"
+									],
+									"query": [
+										{
+											"key": "offer",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 13 May 2021 11:36:14 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "231"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"title\": \"Renew offer\",\n    \"status\": \"Draft\",\n    \"total\": \"2300.000\",\n    \"discount\": null,\n    \"signature_type\": \"Bank ID\",\n    \"currency\": \"Krona\",\n    \"vat\": null,\n    \"owner\": 3,\n    \"related_company\": 2,\n    \"payment_schedule\": 1,\n    \"document\": null,\n    \"customer\": [],\n    \"lines\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Customers To Offer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRhdmVsYW5AZ21haWwuY29tIn0.EMkgaSDZyYgUcXEWLWnWdqDRFcH6cLWqI5ztMtr1c4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customers\": [\r\n        2\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/sales/add_customers?offer=11",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sales",
+								"add_customers"
+							],
+							"query": [
+								{
+									"key": "offer",
+									"value": "11"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Fetch Sales Offers",
+					"name": "Add Lines To Offer",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRhdmVsYW5AZ21haWwuY29tIn0.EMkgaSDZyYgUcXEWLWnWdqDRFcH6cLWqI5ztMtr1c4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lines\": [\r\n        2\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/sales/add_lines?offer=11",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"sales",
+								"add_lines"
+							],
+							"query": [
+								{
+									"key": "offer",
+									"value": "11"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -549,11 +1228,121 @@
 				{
 					"name": "Create Customer",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxhbnJlQGdtYWlsLmNvbSJ9.bk6UAItDwJIFqsWT6MCaOrocKrNKbMVs9b6a4Xwgqj8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Lois\",\r\n    \"email\": \"Lois@gmail.com\",\r\n    \"related_company\": \"1\",\r\n    \"company_email\": \"lane@gmail.com\",\r\n    \"company_name\": \"Lois Co\",\r\n    \"company_number\": \"134354354\",\r\n    \"company_address\": \"London, UK\",\r\n    \"company_zipcode\": \"1200021\",\r\n    \"company_city\": \"Brimwitch\",\r\n    \"company_country\": \"United Kindom\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/customer/create",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"create"
+							]
+						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Create Customer",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"Lois\",\r\n    \"email\": \"Lois@gmail.com\",\r\n    \"related_company\": \"1\",\r\n    \"company_email\": \"lane@gmail.com\",\r\n    \"company_name\": \"Lois Co\",\r\n    \"company_number\": \"134354354\",\r\n    \"company_address\": \"London, UK\",\r\n    \"company_zipcode\": \"1200021\",\r\n    \"company_city\": \"Brimwitch\",\r\n    \"company_country\": \"United Kindom\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/customer/create",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"customer",
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 11 May 2021 17:51:25 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "312"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"first_name\": \"Lois\",\n    \"last_name\": \"\",\n    \"email\": \"Lois@gmail.com\",\n    \"company_email\": \"lane@gmail.com\",\n    \"company_name\": \"Lois Co\",\n    \"company_number\": \"134354354\",\n    \"company_address\": \"London, UK\",\n    \"company_zipcode\": \"1200021\",\n    \"company_city\": \"Brimwitch\",\n    \"company_country\": \"United Kindom\",\n    \"reference\": null,\n    \"related_user\": null\n}"
+						}
+					]
 				},
 				{
 					"name": "Fetch Customers",
@@ -858,7 +1647,84 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Sign",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "document",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/bankid/sign",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"bankid",
+										"sign"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 11 May 2021 12:55:36 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "247"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"authResponse\": {\n        \"Success\": true,\n        \"ErrorMessage\": null\n    },\n    \"apiCallResponse\": {\n        \"Success\": true,\n        \"StatusMessage\": \"BankId sign initiated\",\n        \"Response\": {\n            \"OrderRef\": \"6aa4724f-5546-46c4-a66c-a7eefb396926\",\n            \"AutoStartToken\": \"756dc791-a804-4588-9d09-8fe06ef04bd4\"\n        }\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Check Status",
@@ -881,6 +1747,262 @@
 								"sign"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxhbnJlQGdtYWlsLmNvbSJ9.bk6UAItDwJIFqsWT6MCaOrocKrNKbMVs9b6a4Xwgqj8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user?id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/user?id=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 12 May 2021 14:38:55 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, PUT, PATCH, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "364"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"email\": \"admin@docsmart.com\",\n    \"username\": null,\n    \"first_name\": \"Admin\",\n    \"last_name\": \"DocSmart\",\n    \"phone\": \"\",\n    \"last_login\": \"2021-05-07T15:46:51.466386Z\",\n    \"date_joined\": \"2021-05-07T15:46:47.141395Z\",\n    \"created_at\": \"2021-05-07T15:46:47.141395Z\",\n    \"updated_at\": \"2021-05-07T15:46:47.141395Z\",\n    \"is_active\": true,\n    \"is_admin\": true,\n    \"is_staff\": true,\n    \"groups\": [],\n    \"user_permissions\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImxhbnJlQGdtYWlsLmNvbSJ9.bk6UAItDwJIFqsWT6MCaOrocKrNKbMVs9b6a4Xwgqj8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"email\": \"admin@docsmart.com\",\r\n    \"username\": \"DocSmartAdmin\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/?id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update User",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"email\": \"admin@docsmart.com\",\r\n    \"username\": \"DocSmartAdmin\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/user/?id=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 12 May 2021 14:41:53 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, PUT, PATCH, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "375"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"email\": \"admin@docsmart.com\",\n    \"username\": \"DocSmartAdmin\",\n    \"first_name\": \"Admin\",\n    \"last_name\": \"DocSmart\",\n    \"phone\": \"\",\n    \"last_login\": \"2021-05-07T15:46:51.466386Z\",\n    \"date_joined\": \"2021-05-07T15:46:47.141395Z\",\n    \"created_at\": \"2021-05-07T15:46:47.141395Z\",\n    \"updated_at\": \"2021-05-12T14:41:53.887144Z\",\n    \"is_active\": true,\n    \"is_admin\": true,\n    \"is_staff\": true,\n    \"groups\": [],\n    \"user_permissions\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}
