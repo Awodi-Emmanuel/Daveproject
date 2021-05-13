@@ -75,5 +75,4 @@ class RetrieveSalesOfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sales
-        depth = 1
         fields = '__all__'

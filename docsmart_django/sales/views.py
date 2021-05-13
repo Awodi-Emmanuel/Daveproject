@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from customer.serializer import CreateCustomerSerializer
 from logs.models import Logs
 from plugins_base.backends import CompanyPluginAccessPermission, UserPluginAccessPermission
+from sales.backends import OwnsSalesOffer
 from sales.serializers import CreatePaymentSchedule, RetrieveSalesOfferSerializer, \
     OfferSerializer
 from sales.models import Sales
@@ -73,11 +74,12 @@ class CreateSalesOffer(GenericAPIView):
 
 class UpdateSalesOffer(UpdateAPIView):
     serializer_class = OfferSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, CompanyPluginAccessPermission,
+                          UserPluginAccessPermission, OwnsSalesOffer)
 
     @staticmethod
     def put(request):
-        offer = Sales.objects.get(id=request.GET.get('id'))
+        offer = Sales.objects.get(id=request.GET.get('offer'), owner=request.user)
         offer_serializer = OfferSerializer(offer, data=request.data)
         if offer_serializer.is_valid():
             offer_serializer.save()
@@ -87,7 +89,7 @@ class UpdateSalesOffer(UpdateAPIView):
 
 class RetrieveSalesOffer(ListCreateAPIView):
     serializer_class = RetrieveSalesOfferSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, CompanyPluginAccessPermission, UserPluginAccessPermission)
 
     def get_queryset(self):
         return Sales.objects.filter(owner=self.request.user)
