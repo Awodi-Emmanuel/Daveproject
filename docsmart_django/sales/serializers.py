@@ -49,12 +49,6 @@ class OfferSerializer(serializers.ModelSerializer):
 
 
 class CreatePaymentSchedule(serializers.ModelSerializer):
-    """
-    item = models.CharField(verbose_name="item", max_length=500)
-    price = models.DecimalField(verbose_name="price", max_digits=9, decimal_places=3)
-    start = models.DateTimeField(verbose_name="start")
-    finish = models.DateTimeField(verbose_name="finish")
-    """
 
     item = serializers.CharField(
         max_length=255, min_length=8, required=True)

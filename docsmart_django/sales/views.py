@@ -1,5 +1,5 @@
 # Create your views here.
-from rest_framework import permissions, status
+from rest_framework import permissions, status, serializers
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, UpdateAPIView
 from rest_framework.response import Response
 from customer.serializer import CreateCustomerSerializer
@@ -85,6 +85,28 @@ class UpdateSalesOffer(UpdateAPIView):
             offer_serializer.save()
             return Response(offer_serializer.data, status=200)
         return Response(offer_serializer.errors, status=500)
+
+
+class AddCustomersToOffer(ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated, CompanyPluginAccessPermission,
+                          UserPluginAccessPermission, OwnsSalesOffer)
+
+    def post(self, request, *args, **kwargs):
+        offer = Sales.objects.get(id=self.request.GET.get('offer'))
+        if request.data.get('customers'):
+            for c in request.data.get('customers'):
+                Sales.add_customer_to_offer(customer=c, offer=offer)
+            return Response({'message': 'users added successfully', 'status': 'success'}, 200)
+        return Response({'message': 'users added successfully', 'status': 'success'}, 200)
+
+
+class RetrieveSingleSalesOffer(ListCreateAPIView):
+    serializer_class = RetrieveSalesOfferSerializer
+    permission_classes = (permissions.IsAuthenticated, CompanyPluginAccessPermission, UserPluginAccessPermission)
+
+    def get(self, request, *args, **kwargs):
+        offer_serializer = RetrieveSalesOfferSerializer(Sales.objects.get(id=self.request.GET.get('offer')))
+        return Response(offer_serializer.data)
 
 
 class RetrieveSalesOffer(ListCreateAPIView):
