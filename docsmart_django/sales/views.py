@@ -4,6 +4,7 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView, UpdateAPI
 from rest_framework.response import Response
 from customer.serializer import CreateCustomerSerializer
 from logs.models import Logs
+from plugins_base.backends import CompanyPluginAccessPermission, UserPluginAccessPermission
 from sales.serializers import CreatePaymentSchedule, RetrieveSalesOfferSerializer, \
     OfferSerializer
 from sales.models import Sales
@@ -12,7 +13,7 @@ from django.contrib.contenttypes.models import ContentType
 
 
 class CreateSalesOffer(GenericAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, CompanyPluginAccessPermission, UserPluginAccessPermission)
     serializer_class = OfferSerializer, CreatePaymentSchedule, CreateCustomerSerializer
 
     @staticmethod

@@ -7,7 +7,7 @@ class OwnerPermission(permissions.BasePermission):
     """
     Global permission check for company ownership
     """
-    message = 'User does not have ownership permissions'
+    message = 'You cannot perform this action'
 
     def has_permission(self, request, view):
         company = Company.objects.get(user__id=request.user.id)
