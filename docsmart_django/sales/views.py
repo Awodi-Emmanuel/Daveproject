@@ -96,8 +96,21 @@ class AddCustomersToOffer(ListCreateAPIView):
         if request.data.get('customers'):
             for c in request.data.get('customers'):
                 Sales.add_customer_to_offer(customer=c, offer=offer)
-            return Response({'message': 'users added successfully', 'status': 'success'}, 200)
-        return Response({'message': 'users added successfully', 'status': 'success'}, 200)
+            return Response({'message': 'Customers added successfully', 'status': 'success'}, 200)
+        return Response({'message': 'Customers added successfully', 'status': 'success'}, 200)
+
+
+class AddLinesToOffer(ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated, CompanyPluginAccessPermission,
+                          UserPluginAccessPermission, OwnsSalesOffer)
+
+    def post(self, request, *args, **kwargs):
+        offer = Sales.objects.get(id=self.request.GET.get('offer'))
+        if request.data.get('lines'):
+            for l in request.data.get('lines'):
+                Sales.add_line_to_offer(line=l, offer=offer)
+            return Response({'message': 'Lines added successfully', 'status': 'success'}, 200)
+        return Response({'message': 'Lines added successfully', 'status': 'success'}, 200)
 
 
 class RetrieveSingleSalesOffer(ListCreateAPIView):
