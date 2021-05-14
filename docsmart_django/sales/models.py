@@ -1,6 +1,7 @@
 from enum import Enum
 
 from django.db import models
+from django_cryptography.fields import encrypt
 
 from company.models import Company
 from customer.models import Customer
@@ -31,11 +32,12 @@ class Currency(Enum):
 
 class Sales(models.Model):
     title = models.CharField(verbose_name="title", max_length=500)
-    # template = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+
     status = models.CharField(
         max_length=200,
         choices=[(tag, tag.value) for tag in Status], default=Status.DRAFT
     )
+    content = encrypt(models.TextField())
     total = models.DecimalField(default=0.00, max_digits=9, decimal_places=3, null=True)
     discount = models.DecimalField(default=0.00, max_digits=9, decimal_places=3, null=True)
     vat = models.ForeignKey(VAT, on_delete=models.CASCADE, blank=True, null=True)

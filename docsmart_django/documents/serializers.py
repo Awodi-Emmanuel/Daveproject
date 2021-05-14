@@ -8,12 +8,13 @@ class DocumentSerializer(serializers.ModelSerializer):
     name = serializers.CharField(
         max_length=255, min_length=8)
     path = serializers.CharField(max_length=255, min_length=4)
+    content = serializers.CharField(required=False)
     company_id = serializers.CharField(required=False)
     created_by = serializers.CharField()
 
     class Meta:
         model = Document
-        fields = ['name', 'path', 'company_id', 'created_by']
+        fields = ['name', 'path', 'content', 'company_id', 'created_by']
         # , 'created_by', 'last_edited_by',
 
     def validate(self, attrs):
@@ -54,5 +55,5 @@ class FetchUserDocumentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         depth = 1
-        fields = ['id', 'name', 'path', 'date_last_edited', 'created_at',
+        fields = ['id', 'name', 'path', 'content', 'date_last_edited', 'created_at',
                   'updated_at', 'date_last_edited', 'permissions']

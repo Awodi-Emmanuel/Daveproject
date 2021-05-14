@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
 from .models import Document
 from .serializers import DocumentSerializer, FetchUserDocumentsSerializer
@@ -65,6 +66,28 @@ class DeleteSingleCompanyDocument(GenericAPIView):
         except Exception:
             return Response({"message": "We're unable to delete this document"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class FetchSingleUserDocument(ListCreateAPIView):
+    serializer_class = FetchUserDocumentsSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        # try:
+        document_serializer = FetchUserDocumentsSerializer(
+            Document.objects.get(id=self.request.GET.get('id'), permissions__user_id=self.request.user.id))
+        return Response(document_serializer.data, status=status.HTTP_200_OK)
+        # except ObjectDoesNotExist:
+        #     return Response({"message": "You do not have access to this document or document does not exist"},
+        #                     status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class FetchSingleCompanyDocument(ListCreateAPIView):
+    serializer_class = FetchUserDocumentsSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        return Document.objects.filter(permissions__user_id=self.request.user)
 
 
 class FetchUserDocument(ListCreateAPIView):

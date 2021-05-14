@@ -3,6 +3,7 @@ from user.models import User
 from company.models import Company
 from documents.manager import DocumentsManager
 from permissions.models import DocumentPermission
+from django_cryptography.fields import encrypt
 
 
 # Create your models here.
@@ -14,6 +15,7 @@ class Document(models.Model):
     company_id = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, )
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="creator")
     permissions = models.ManyToManyField(DocumentPermission, verbose_name="Permission", blank=True)
+    content = encrypt(models.TextField())
     date_last_edited = models.DateTimeField(auto_now_add=True)
     last_edited_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now=True, null=True)

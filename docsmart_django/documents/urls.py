@@ -1,8 +1,11 @@
 from django.urls import path
-from .views import CreateDocument, FetchUserDocument, FetchUserFolderStructureWithPermissions, FetchCompanyFolderStructureWithPermissions, CreateSingleUserDirectory, DeleteSingleUserDocument, DeleteSingleCompanyDocument
+from .views import CreateDocument, FetchUserDocument, FetchUserFolderStructureWithPermissions, \
+    FetchCompanyFolderStructureWithPermissions, CreateSingleUserDirectory, DeleteSingleUserDocument, \
+    DeleteSingleCompanyDocument, FetchSingleUserDocument
 
 urlpatterns = [
     path('create-document', CreateDocument.as_view()),
+    path('fetch', FetchSingleUserDocument.as_view()),
     path('fetch-user-documents', FetchUserDocument.as_view()),
     path('delete-document', DeleteSingleUserDocument.as_view()),
     path('delete-company-document', DeleteSingleCompanyDocument.as_view()),
