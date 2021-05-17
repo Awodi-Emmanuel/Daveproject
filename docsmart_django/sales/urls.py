@@ -1,6 +1,7 @@
 
 from django.urls import path
-from .views import CreateSalesOffer, RetrieveSalesOffer, UpdateSalesOffer, RetrieveSingleSalesOffer, AddCustomersToOffer
+from .views import CreateSalesOffer, RetrieveSalesOffer, UpdateSalesOffer, RetrieveSingleSalesOffer, \
+    AddCustomersToOffer, SendSalesOffer
 
 urlpatterns = [
     path('create', CreateSalesOffer.as_view()),
@@ -9,4 +10,5 @@ urlpatterns = [
     path('add_lines', AddCustomersToOffer.as_view()),
     path('fetch_offer', RetrieveSingleSalesOffer.as_view()),
     path('update', UpdateSalesOffer.as_view()),
+    path('send', SendSalesOffer.as_view()),
 ]

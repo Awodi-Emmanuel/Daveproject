@@ -1,3 +1,4 @@
+from datetime import datetime
 from enum import Enum
 
 from django.db import models
@@ -86,3 +87,37 @@ class Sales(models.Model):
 
     def get_absolute_url(self):
         return reverse("Sales_detail", kwargs={"pk": self.pk})
+
+
+class SentOffers(models.Model):
+    related_company = models.ForeignKey(Company, on_delete=models.DO_NOTHING, db_column='related_company', null=True, blank=True)
+    related_user = models.ForeignKey(User, on_delete=models.DO_NOTHING, db_column='related_user', null=True, blank=True)
+    offer = models.ForeignKey(Sales, on_delete=models.DO_NOTHING, db_column='offer', null=True, blank=True)
+    customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING, db_column='customer', null=True, blank=True)
+    offer_status = (
+        ('sent', 'Sent'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+        ('signed', 'Signed'),
+        ('lost', 'Lost'),
+        ('expired', 'Expired'),
+        ('won', 'Won'),
+    )
+    status = models.CharField(max_length=10, choices=offer_status)
+    expires_at = models.DateTimeField()
+    signed_at = models.DateTimeField()
+    declined_at = models.DateTimeField()
+    accepted_at = models.DateTimeField()
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        db_table = 'sent_offers'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return '{} - {}'.format(self.customer, self.offer)
+
+    def get_days_left(self):
+        return (self.expires_at - datetime.now()).days
+

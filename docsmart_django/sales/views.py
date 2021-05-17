@@ -6,6 +6,7 @@ from customer.serializer import CreateCustomerSerializer
 from logs.models import Logs
 from plugins_base.backends import CompanyPluginAccessPermission, UserPluginAccessPermission
 from sales.backends import OwnsSalesOffer
+from sales.helpers import Send
 from sales.serializers import CreatePaymentSchedule, RetrieveSalesOfferSerializer, \
     OfferSerializer
 from sales.models import Sales
@@ -128,3 +129,13 @@ class RetrieveSalesOffer(ListCreateAPIView):
 
     def get_queryset(self):
         return Sales.objects.filter(owner=self.request.user)
+
+
+class SendSalesOffer(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated, CompanyPluginAccessPermission,
+                          UserPluginAccessPermission, OwnsSalesOffer)
+
+    def get(self, request, *args, **kwargs):
+        offer = Sales.objects.get(id=self.request.GET.get('offer'))
+        Send.offer(offer)
+        return Response({'message': 'Lines added successfully', 'status': 'success'}, 200)

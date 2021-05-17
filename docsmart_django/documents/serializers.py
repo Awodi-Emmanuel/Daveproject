@@ -34,6 +34,7 @@ class DocumentSerializer(serializers.ModelSerializer):
 
         return super().validate(attrs)
 
+
     def create(self, validated_data):
 
         document = Document.objects.create_document(**validated_data)
