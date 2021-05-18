@@ -15,7 +15,6 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ['name', 'path', 'content', 'company_id', 'created_by']
-        # , 'created_by', 'last_edited_by',
 
     def validate(self, attrs):
         name = attrs.get('name', '')
@@ -34,14 +33,11 @@ class DocumentSerializer(serializers.ModelSerializer):
 
         return super().validate(attrs)
 
-
     def create(self, validated_data):
-
         document = Document.objects.create_document(**validated_data)
         user = get_user_model().objects.get(id=validated_data.get('created_by'))
         permission = DocumentPermission.objects.grant_basic_permissions(document_id=document, user_id=user)
         Document.grant_access(permissions=permission, document=document)
-
         return document
 
 

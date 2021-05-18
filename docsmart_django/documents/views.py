@@ -1,5 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.generics import GenericAPIView, ListCreateAPIView
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, UpdateAPIView
+
+from .backends import CanEditDocument
 from .models import Document
 from .serializers import DocumentSerializer, FetchUserDocumentsSerializer
 from rest_framework.response import Response
@@ -22,6 +24,20 @@ class CreateDocument(GenericAPIView):
             return Response({'message': 'Document created successfully'}, status=status.HTTP_201_CREATED)
 
         return Response(document_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateDocument(UpdateAPIView):
+    serializer_class = DocumentSerializer
+    permission_classes = (permissions.IsAuthenticated, CanEditDocument)
+
+    @staticmethod
+    def put(request):
+        document = Document.objects.get(id=request.GET.get('document'))
+        document_serializer = DocumentSerializer(document, data=request.data)
+        if document_serializer.is_valid():
+            document_serializer.save()
+            return Response(document_serializer.data, status=200)
+        return Response(document_serializer.errors, status=500)
 
 
 class DeleteSingleUserDocument(GenericAPIView):

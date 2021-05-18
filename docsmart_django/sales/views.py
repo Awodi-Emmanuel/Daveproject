@@ -136,6 +136,10 @@ class SendSalesOffer(GenericAPIView):
                           UserPluginAccessPermission, OwnsSalesOffer)
 
     def get(self, request, *args, **kwargs):
-        offer = Sales.objects.get(id=self.request.GET.get('offer'))
-        Send.offer(offer)
-        return Response({'message': 'Lines added successfully', 'status': 'success'}, 200)
+        try:
+            offer = Sales.objects.get(id=self.request.GET.get('offer'))
+            Send.offer(offer)
+            return Response({'message': 'Offer sent successfully', 'status': 'success'}, 200)
+        except Exception:
+            return Response({'message': 'Unable to send offer', 'status': 'failed'}, 200)
+
