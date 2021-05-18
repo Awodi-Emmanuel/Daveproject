@@ -1,9 +1,13 @@
+from datetime import datetime
+
 import chargebee
 # from datetime import datetime, timedelta, date
+from company.models import Company
 from docsmart_django.settings import CHARGEBEE_API_KEY, CHARGEBEE_SITE
 from django.urls import reverse
 # from company.models import Company
 # from plugins_base.models import Plugin, AppTypes, STATUS
+# from plugins_base.models import Plugin, STATUS
 
 
 class ChargebeeHandler:
@@ -90,7 +94,6 @@ class ChargebeeHandler:
 #
 #
 # def end_trial(user):
-#
 #     company = Company.objects.get(user__id=user.id)
 #     plugin = Plugin.objects.get(company=company, status=STATUS.TRIAL.value)
 #     plugin.status = STATUS.EXPIRED

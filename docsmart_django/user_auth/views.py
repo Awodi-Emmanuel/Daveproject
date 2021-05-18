@@ -75,7 +75,7 @@ class Register(GenericAPIView):
             )
             plugin = Plugin.objects.add_plugin(app=AppTypes.GENERAL.value, subscription=sub, company=company)
             Plugin.grant_plugin_access(user=user, plugin=plugin)
-            # SendMail.send_confirmation_mail(url='http://127.0.0.1:8000/api/auth/complete-signup', user=user)
+            SendMail.send_confirmation_mail(url='http://127.0.0.1:8000/api/auth/complete-signup', user=user)
             response_data = {'user_object': user_serializer.data, 'company_object': company_serializer.data}
             return Response(response_data, status=status.HTTP_201_CREATED)
 

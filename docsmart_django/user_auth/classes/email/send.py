@@ -27,10 +27,9 @@ class SendMail:
 
         mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
 
-
     @staticmethod
     def send_reminder(user, subject, template, message_data):
-        
+
         try:
 
             html_message = render_to_string(template, message_data)
@@ -41,15 +40,37 @@ class SendMail:
             mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
 
             return {
-                "message" : "Email Sent",
+                "message": "Email Sent",
                 "status": "success"
             }
-        
+
         except Exception:
 
             return {
-                "message" : "Unable to send mail",
+                "message": "Unable to send mail",
                 "status": "failed"
             }
 
+    @staticmethod
+    def send_offer(user, subject, template, message_data):
 
+        try:
+
+            html_message = render_to_string(template, message_data)
+            plain_message = strip_tags(html_message)
+            from_email = 'From <postmaster@sandbox1be520cdb9fe45a0b76cef31d274d7a6.mailgun.org>'
+            to = user.email
+
+            mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+
+            return {
+                "message": "Email Sent",
+                "status": "success"
+            }
+
+        except Exception:
+
+            return {
+                "message": "Unable to send mail",
+                "status": "failed"
+            }

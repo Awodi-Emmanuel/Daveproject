@@ -105,10 +105,10 @@ class SentOffers(models.Model):
     )
     status = models.CharField(max_length=10, choices=offer_status)
     expires_at = models.DateTimeField()
-    signed_at = models.DateTimeField()
-    declined_at = models.DateTimeField()
-    accepted_at = models.DateTimeField()
-    created_at = models.DateTimeField()
+    signed_at = models.DateTimeField(null=True)
+    declined_at = models.DateTimeField(null=True)
+    accepted_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
