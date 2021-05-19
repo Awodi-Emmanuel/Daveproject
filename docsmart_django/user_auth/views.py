@@ -155,7 +155,7 @@ class CompleteUserSignUp(GenericAPIView):
             company_serializer.is_valid()
             error_data = {'user_error': user_serializer.errors, 'company_error': company_serializer.errors}
             return Response(error_data, status=status.HTTP_400_BAD_REQUEST)
-
+o
 
 class LoginView(GenericAPIView):
     serializer_class = LoginSerializer
