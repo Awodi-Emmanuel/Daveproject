@@ -49,3 +49,4 @@ class AddUserToPlugin(GenericAPIView):
 
         return Response({"message": "Please provide user to be granted access", "status": "failed"},
                         status=status.HTTP_400_BAD_REQUEST)
+    
